@@ -1,9 +1,7 @@
 import javax.swing.*;
 
 public class DIYHome extends JFrame {
-	/**
-	 * 
-	 */
+	/* Serial UID*/
 	private static final long serialVersionUID = 1L;
 	/* Button for the home screen*/
 	private JButton myHomeButton;
