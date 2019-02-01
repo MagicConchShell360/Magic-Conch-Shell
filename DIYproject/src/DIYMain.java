@@ -1,3 +1,4 @@
+
 public class DIYMain {
 
 	public static void main(String[] args) {
@@ -5,5 +6,4 @@ public class DIYMain {
 		homeTest.show();
 
 	}
-
 }
