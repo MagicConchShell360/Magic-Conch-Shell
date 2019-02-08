@@ -1,4 +1,4 @@
-public class DIYVersionInfo {
+public class DIYVersionInfo implements DIYController {
 
 	private String myVersionInfo;
 	private String[] myDeveloperNames;
@@ -14,8 +14,8 @@ public class DIYVersionInfo {
 	public void setMyVersionInfo(String myVersionInfo) {
 		this.myVersionInfo = myVersionInfo;
 	}
-	public String[] getMyDeveloperNames() {
-		return myDeveloperNames;
+	public String[] getDevelopers() {
+		return myDeveloperNames.clone();
 	}
 	public void setMyDeveloperNames(String[] myDeveloperNames) {
 		this.myDeveloperNames = myDeveloperNames;
