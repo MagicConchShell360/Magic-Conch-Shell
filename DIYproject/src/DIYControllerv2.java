@@ -1,13 +1,12 @@
 import java.awt.FlowLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class DIYControllerv2 extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private JButton myHome; 
+	private JButton myButton; 
 	private JPanel myMainPanel;
 	
 	public DIYControllerv2() {
@@ -16,9 +15,16 @@ public class DIYControllerv2 extends JFrame {
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		setLayout(new FlowLayout());
 		myMainPanel = new JPanel();
-		myHome = new JButton("Home");
+		myButton = new JButton("About");
+		myButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				DIYAbout about = new DIYAbout();
+				about.showAbout();
+			}
+		});
 		add(myMainPanel);
-		add(myHome);
+		add(myButton);
 		setVisible(true);
 		pack();
 	}
