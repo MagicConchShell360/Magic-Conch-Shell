@@ -3,13 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class DIYControllerv2 extends JFrame {
+public class DIYController extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JButton myButton; 
 	private JPanel myMainPanel;
 	
-	public DIYControllerv2() {
+	public DIYController() {
 		super();
 		setSize(400, 800);
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
