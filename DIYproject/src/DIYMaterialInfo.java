@@ -7,6 +7,7 @@ public class DIYMaterialInfo {
 	private String myName;
 	private BigDecimal myPrice; 
 	private BigDecimal myLength; 
+	private int myQuantity;
 	private ArrayList materialInfo;
 	
 	/*
@@ -17,6 +18,7 @@ public class DIYMaterialInfo {
 		myName = theName; 
 		myPrice = thePrice;  
 		myLength = theLength; 
+		myQuantity = theQuantity;
 		materialInfo = new ArrayList();
 	}
 	
@@ -26,9 +28,11 @@ public class DIYMaterialInfo {
 	public String getName() {
 		return myName;
 	}
-	
 	public BigDecimal getPrice() {
 		return myPrice;
+	}
+	public int getQuantity() {
+		return myQuantity;
 	}
 	public BigDecimal getLength() {
 		return myLength;
@@ -42,6 +46,9 @@ public class DIYMaterialInfo {
 	}
 	public void setPrice(BigDecimal thePrice) {
 		myPrice = thePrice;
+	}
+	public void setQuantity(int theQuantity) {
+		myQuantity = theQuantity;
 	}
 	public void setLength(BigDecimal theLength) {
 		myLength = theLength;
