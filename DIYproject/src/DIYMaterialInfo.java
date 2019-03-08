@@ -8,7 +8,6 @@ public class DIYMaterialInfo {
 	private BigDecimal myPrice; 
 	private BigDecimal myLength; 
 	private int myQuantity;
-	private ArrayList materialInfo;
 	
 	/*
 	 * Constructor for all the material information 
@@ -19,7 +18,6 @@ public class DIYMaterialInfo {
 		myPrice = thePrice;  
 		myLength = theLength; 
 		myQuantity = theQuantity;
-		materialInfo = new ArrayList();
 	}
 	
 	/*

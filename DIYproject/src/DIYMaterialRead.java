@@ -5,19 +5,21 @@ public class DIYMaterialRead extends DIYTemplate {
 	private JLabel myPriceLabel; 
 	private JLabel myQuantityLabel; 
 	private JLabel myLengthLabel;
-	private DIYMaterialInfo myInfo;
+	private ArrayList<DIYMaterialInfo> myList;
 	
-	public DIYMaterialRead() {
+	
+	public DIYMaterialRead(ArrayList theList) {
 		myNameLabel = new JLabel();
 		myPriceLabel = new JLabel();
 		myQuantityLabel = new JLabel();
 		myLengthLabel = new JLabel();
 		addJLabels();
-		myInfo = new DIYMaterialInfo();
+		myList = new ArrayList<>;
+		myList = theList; 
 	}
 	
 	/*
-	 * helper method to 
+	 * helper method to add jlabels. 
 	 */
 	public void addJLabels() {
 		myCenterPanel.add(myNameLabel);
@@ -31,9 +33,9 @@ public class DIYMaterialRead extends DIYTemplate {
 	 */
 	public void populateTextFields() {
 		//myInfo is the list. 
-		myNameLabel.setText(myInfo.materialInfo.setName());
-		myPriceLabel.setText(myInfo.materialInfo.setPrice());
-		myQuantityLabel.setText(myInfo.materialInfo.setQuantity());
-		myLengthLabel.setText(myInfo.materialInfo.setLength());
+		myNameLabel.setText(theList.setName());
+		myPriceLabel.setText(theList.setPrice());
+		myQuantityLabel.setText(theList.setQuantity());
+		myLengthLabel.setText(theList.setLength());
 	}
 }
