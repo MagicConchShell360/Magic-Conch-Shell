@@ -1,32 +1,27 @@
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
-public class DIYMain extends JFrame {
+import javax.swing.JButton;
 
-	private static final long serialVersionUID = 1L;
-	private JButton myButton; 
-	private JPanel myMainPanel;
+public class DIYMain extends DIYTemplate {
+
+	public JButton myAboutButton; 
 	
 	public DIYMain() {
-		super();
-		setSize(400, 800);
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		setLayout(new FlowLayout());
-		myMainPanel = new JPanel();
-		myButton = new JButton("About");
-		myButton.addActionListener(new ActionListener() {
+		myAboutButton = new JButton("About");
+		myWestPanel.add(myAboutButton);
+		
+		setUpButtonListeners();
+	}
+	
+	protected void setUpButtonListeners() {
+		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 				DIYAbout about = new DIYAbout();
 				about.showAbout();
 			}
 		});
-		add(myMainPanel);
-		add(myButton);
-		setVisible(true);
-		pack();
 	}
-	
 }
