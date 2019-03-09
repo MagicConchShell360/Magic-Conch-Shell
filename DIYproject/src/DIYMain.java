@@ -6,7 +6,8 @@ import javax.swing.JButton;
 
 public class DIYMain extends DIYTemplate {
 
-	public JButton myAboutButton; 
+	public JButton myAboutButton;
+
 	
 	public DIYMain() {
 		myAboutButton = new JButton("About");

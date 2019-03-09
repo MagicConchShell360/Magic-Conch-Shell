@@ -14,27 +14,17 @@ import javax.swing.JPanel;
 public class DIYTemplate extends JFrame {
 
 	private static final long serialVersionUID = -3145628090769981498L;
-	public JButton myBackButton;
 	public JPanel myWestPanel;
 	public JPanel myCenterPanel;
 	
 	public DIYTemplate() {
 		super();
-		
-		myBackButton = new JButton("Back");
 		myWestPanel = new JPanel();
 		myCenterPanel = new JPanel();
 		
 		setUpFrame();
 		setUpWestPanel();
 		setUpCenterPanel();
-		
-		myBackButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				dispose();
-			}
-		});
 		
 		setVisible(true);
 	}
@@ -52,7 +42,6 @@ public class DIYTemplate extends JFrame {
 	protected void setUpWestPanel() {
 		myWestPanel.setLayout(new GridLayout(12, 1));
 		myWestPanel.setPreferredSize(new Dimension(100, 800));
-		myWestPanel.add(myBackButton);
 		myWestPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	}
 	
