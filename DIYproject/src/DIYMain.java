@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JList;
 
 /**
@@ -82,7 +83,11 @@ public class DIYMain extends DIYTemplate {
 		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				DIYAbout about = new DIYAbout();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYAbout about = new DIYAbout(temp);
 				about.setVisible(true);
 			}
 		});
@@ -106,7 +111,7 @@ public class DIYMain extends DIYTemplate {
 		myViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoRead about = new DIYInfoRead();
+//				DIYInfoRead view = new DIYInfoRead();
 //				view.setVisible(true);
 			}
 		});
@@ -121,4 +126,17 @@ public class DIYMain extends DIYTemplate {
 		});
 		
 	}
+	
+	
+	
+	
+	
+	public String toString() {
+		return "Hello";
+	}
+	
+	
+	
+	
+	
 }
