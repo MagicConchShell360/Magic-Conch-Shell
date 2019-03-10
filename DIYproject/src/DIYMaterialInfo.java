@@ -13,7 +13,7 @@ public class DIYMaterialInfo {
 	 * Constructor for all the material information 
 	 */
 	public DIYMaterialInfo(String theName, BigDecimal thePrice, int theQuantity,
-							BigDecimal theLength, String theNotes) {
+							BigDecimal theLength) {
 		myName = theName; 
 		myPrice = thePrice;  
 		myLength = theLength; 
