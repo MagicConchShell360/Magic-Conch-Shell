@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class DIYInfoRead extends DIYTemplate {
@@ -25,6 +27,7 @@ public class DIYInfoRead extends DIYTemplate {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
+	private JTextArea myMaterialInfoTextArea;
 
 	public DIYInfoRead(JFrame thisParentFrame, DIYProjectInfo theProjectInfo) {
 
@@ -38,15 +41,15 @@ public class DIYInfoRead extends DIYTemplate {
 		setUpProjectInfoPanel();
 		setUpMaterialInfoPanel();
 		populateTextFields();
+		
+		setLocationRelativeTo(thisParentFrame);
+		thisParentFrame.setEnabled(false);
 
 	}
 
 	private void setUpButtons() {
 
 		addButton = new JButton("Add");
-		// removeButton = new JButton("Remove");
-		// editButton = new JButton("Edit");
-
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
@@ -83,21 +86,21 @@ public class DIYInfoRead extends DIYTemplate {
 	}
 
 	private void setUpTextFields() {
-
+		
 		myNameTextField = new JTextField();
+		myNameTextField.setMinimumSize(new Dimension(250, 100));
 		myTotalCostTextField = new JTextField();
+		myTotalCostTextField.setMinimumSize(new Dimension(250, 100));
 		myPriorityTextField = new JTextField();
+		myPriorityTextField.setMinimumSize(new Dimension(250, 100));
 		myLengthTextField = new JTextField();
+		myLengthTextField.setMinimumSize(new Dimension(250, 100));
 
 		myNameTextField.setEditable(false);
 		myTotalCostTextField.setEditable(false);
 		myPriorityTextField.setEditable(false);
 		myLengthTextField.setEditable(false);
 
-		myNameTextField.setText(myProjectInfo.getName());
-		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
-		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
-		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
 	}
 
 	private void setUpProjectInfoPanel() {
@@ -121,6 +124,13 @@ public class DIYInfoRead extends DIYTemplate {
 	}
 
 	private void populateTextFields() {
+		myNameTextField.setText(myProjectInfo.getName());
+		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
+		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
+		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
 
+		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
+			myMaterialInfoTextArea.setText(myProjectInfo.getMaterialList().get(i).toString());
+		}
 	}
 }
