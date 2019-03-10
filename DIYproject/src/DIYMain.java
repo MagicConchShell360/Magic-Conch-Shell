@@ -48,13 +48,14 @@ public class DIYMain extends DIYTemplate {
 		initProjectRegister();
 	}
 	
+	/**
+	 * 
+	 */
 	private void initProjectRegister() {
 		myListDisplay = new ArrayList<>();
 		
-		
 		for(int i = 0; i < myProjectInfo.size(); i++) {
 			myListDisplay.add(myProjectInfo.get(i).toString());
-			System.out.println(myProjectInfo.get(i).toString());
 		}
 		
 		myProjectRegister = new JList(myListDisplay.toArray());
@@ -117,6 +118,79 @@ public class DIYMain extends DIYTemplate {
 	 */
 	protected void setUpButtonListeners() {
 
+		myAddButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit read = new DIYInfoEdit(temp, myProjectInfo);
+//				read.setVisible(true);
+			}
+		});
+		
+		myEditButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit edit = new DIYInfoEdit(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+//				edit.setVisible(true);
+			}
+		});
+		
+		myViewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYInfoRead view = new DIYInfoRead(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				view.setVisible(true);
+			}
+		});
+		
+		myRemoveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				myCenterPanel.removeAll();
+				int index = myProjectRegister.getSelectedIndex();
+				
+				myProjectInfo.remove(index);
+				initProjectRegister();
+				myCenterPanel.revalidate();
+				myCenterPanel.repaint();
+			}
+		});
+		
+		myImportButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYImport about = new DIYImport(temp);
+				about.setVisible(true);
+			}
+		});
+		
+		myExportButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYExport about = new DIYExport(temp);
+				about.setVisible(true);
+			}
+		});
+		
 		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
@@ -129,71 +203,9 @@ public class DIYMain extends DIYTemplate {
 			}
 		});
 		
-		myAddButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-//				DIYInfoEdit read = new DIYInfoEdit(temp);
-//				read.setVisible(true);
-			}
-		});
-		
-		myEditButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-//				DIYInfoEdit edit = new DIYInfoEdit(temp);
-//				edit.setVisible(true);
-			}
-		});
-		
-		myViewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-				DIYInfoRead view = new DIYInfoRead(temp, myProjectInfo.get(0));
-				view.setVisible(true);
-			}
-		});
-		
-		myRemoveButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				myCenterPanel.removeAll();
-				int index = myProjectRegister.getSelectedIndex();
-				
-				myProjectInfo.remove(index);
-				myListDisplay = new ArrayList<>();
-				
-				
-				for(int i = 0; i < myProjectInfo.size(); i++) {
-					myListDisplay.add(myProjectInfo.get(i).toString());
-				}
-				
-				
-				myProjectRegister = new JList(myListDisplay.toArray());
-				myProjectRegister.setPreferredSize(new Dimension(635,555));
-				myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				myProjectRegister.setSelectedIndex(0);
-				myCenterPanel.add(myProjectRegister);
-				
-				
-				myCenterPanel.revalidate();
-				myCenterPanel.repaint();
-			}
-		});
-		
 	}
+	
+	
 	
 	
 }

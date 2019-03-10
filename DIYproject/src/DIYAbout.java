@@ -38,9 +38,6 @@ public class DIYAbout extends JFrame {
 		setLocationRelativeTo(null);
 		setUpComponents();
 		setVisible(false);
-		
-		setLocationRelativeTo(thisParentFrame);
-		thisParentFrame.setEnabled(false);
 	}
 	
 	private void setUpComponents() {
