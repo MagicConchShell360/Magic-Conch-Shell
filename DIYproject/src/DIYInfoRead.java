@@ -26,17 +26,7 @@ public class DIYInfoRead extends DIYTemplate {
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
 
-	public DIYInfoRead(JFrame theInfoReadFrame) {
-
-	}
-
-	public DIYInfoRead(ArrayList<DIYProjectInfo> theProjectInfoList) {
-
-		myProjectInfoList = theProjectInfoList;
-
-	}
-
-	public DIYInfoRead(DIYProjectInfo theProjectInfo) {
+	public DIYInfoRead(JFrame thisParentFrame, DIYProjectInfo theProjectInfo) {
 
 		myProjectInfo = theProjectInfo;
 

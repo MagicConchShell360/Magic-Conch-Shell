@@ -17,7 +17,7 @@ public class DIYProjectInfo {
 	 * 
 	 * @param theMaterialInfoList
 	 */
-	public DIYProjectInfo(ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+	public DIYProjectInfo(String thisName, BigDecimal thisCost, int thisPriority, double thisLength, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
 		myName = "";
 		myTotalCost = new BigDecimal(0);
 		myPriority = 0;

@@ -2,11 +2,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
 
 /**
@@ -32,6 +32,12 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
+		myProjectInfo = new ArrayList<>();
+		DIYProjectInfo hello = new DIYProjectInfo("Window", BigDecimal.valueOf(500), 2, 3.5, new ArrayList<DIYMaterialInfo>());
+		
+		myProjectInfo.add(hello);
+		
+		
 		addWestPanelButtons();
 		
 		String[] test =  {"Project Name: Window --- Cost: $500 --- Priority: 2",
@@ -111,8 +117,12 @@ public class DIYMain extends DIYTemplate {
 		myViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoRead view = new DIYInfoRead();
-//				view.setVisible(true);
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYInfoRead view = new DIYInfoRead(temp, myProjectInfo.get(0));
+				view.setVisible(true);
 			}
 		});
 		
