@@ -61,9 +61,9 @@ public class DIYProjectInfo {
 	
 	@Override
 	public String toString() {
-		String projectInfo = "";
-		projectInfo.format("Project Name: %s\tTotal Cost: %.2f\t Priority: %d\t Length: %f", 
-				getName(), getTotalCost(), getPriority(), getLength());
-		return projectInfo;
+		return "Project Name: " + getName() +
+				" --- TotalCost: " + getTotalCost() +
+				" --- Priority: " + getPriority() +
+				" --- Length: " + getLength();
 	}
 }

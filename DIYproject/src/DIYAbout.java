@@ -14,33 +14,33 @@ import javax.swing.JPanel;
  */
 public class DIYAbout extends JFrame {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 501364500319788870L;
 	private DIYVersionInfo myInfo;
 	private JPanel myPanel;
 	private JLabel myVersionLabel;
 	private JLabel myDeveloperLabel;
 	private JButton myButton;
+	private JFrame myParentFrame;
 	
-	public DIYAbout (JFrame myParentFrame) {
+	public DIYAbout (JFrame thisParentFrame) {
 		myInfo = new DIYVersionInfo();
 		myPanel = new JPanel();
 		myVersionLabel = new JLabel();
 		myDeveloperLabel = new JLabel();
 		myButton = new JButton();
+		myParentFrame = thisParentFrame;
 		
 		setLayout(new BorderLayout());
 		setTitle("About Us");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(400, 200);		
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setUpComponents();
 		setVisible(false);
 		
-		this.setLocationRelativeTo(myParentFrame);
+		setLocationRelativeTo(thisParentFrame);
+		thisParentFrame.setEnabled(false);
 	}
 	
 	private void setUpComponents() {
@@ -60,6 +60,7 @@ public class DIYAbout extends JFrame {
 		myButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
+				myParentFrame.setEnabled(true);
 				if (isVisible()) setVisible(false);
 			}
 		});

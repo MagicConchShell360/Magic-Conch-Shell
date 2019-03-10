@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JRootPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * This is the GUI class for the main window.
@@ -25,6 +28,7 @@ public class DIYMain extends DIYTemplate {
 	private JButton myAboutButton;
 	private JList<String> myProjectRegister;
 	private ArrayList<DIYProjectInfo> myProjectInfo;
+	private ArrayList<String> myListDisplay;
 
 	/**
 	 * Sets up all the components for the main window.
@@ -32,28 +36,55 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
+		// Centers the window to the screen
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
+		// Initiates components
 		myProjectInfo = new ArrayList<>();
-		DIYProjectInfo hello = new DIYProjectInfo("Window", BigDecimal.valueOf(500), 2, 3.5, new ArrayList<DIYMaterialInfo>());
-		
-		myProjectInfo.add(hello);
-		
-		
+		initiateProjects();
 		addWestPanelButtons();
+		setUpButtonListeners();
+		initProjectRegister();
+	}
+	
+	private void initProjectRegister() {
+		myListDisplay = new ArrayList<>();
 		
-		String[] test =  {"Project Name: Window --- Cost: $500 --- Priority: 2",
-						  "Project Name: Chair --- Cost: $25 --- Priority: 4",
-						  "Project Name: Table --- Cost: $150 --- Priority: 3",
-						  "Project Name: Desk --- Cost: $100 --- Priority: 2",
-						  "Project Name: Kitchen --- Cost: $7500 --- Priority: 5"
-		};
 		
-		myProjectRegister = new JList(test);
+		for(int i = 0; i < myProjectInfo.size(); i++) {
+			myListDisplay.add(myProjectInfo.get(i).toString());
+			System.out.println(myProjectInfo.get(i).toString());
+		}
+		
+		myProjectRegister = new JList(myListDisplay.toArray());
 		myProjectRegister.setPreferredSize(new Dimension(635,555));
 		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
+		myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		myProjectRegister.setSelectedIndex(0);
 		myCenterPanel.add(myProjectRegister);
+	}
+	
+	/**
+	 * Sets values to ProjectList
+	 * 
+	 * @author Kevin Santos
+	 */
+	private void initiateProjects() {
+		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
+				2, 7.5, new ArrayList<DIYMaterialInfo>()));
+
+		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
+				4, 5.5, new ArrayList<DIYMaterialInfo>()));
 		
-		setUpButtonListeners();
+		myProjectInfo.add(new DIYProjectInfo("Table", BigDecimal.valueOf(150),
+				3, 5.0, new ArrayList<DIYMaterialInfo>()));
+		
+		myProjectInfo.add(new DIYProjectInfo("Desk", BigDecimal.valueOf(100),
+				2, 12.5, new ArrayList<DIYMaterialInfo>()));
+		
+		myProjectInfo.add(new DIYProjectInfo("Kitchen", BigDecimal.valueOf(7500),
+				5, 63.5, new ArrayList<DIYMaterialInfo>()));
 	}
 	
 	/**
@@ -101,7 +132,11 @@ public class DIYMain extends DIYTemplate {
 		myAddButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoEdit read = new DIYInfoEdit();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit read = new DIYInfoEdit(temp);
 //				read.setVisible(true);
 			}
 		});
@@ -109,7 +144,11 @@ public class DIYMain extends DIYTemplate {
 		myEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoEdit edit = new DIYInfoEdit();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit edit = new DIYInfoEdit(temp);
 //				edit.setVisible(true);
 			}
 		});
@@ -129,24 +168,32 @@ public class DIYMain extends DIYTemplate {
 		myRemoveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
+				myCenterPanel.removeAll();
+				int index = myProjectRegister.getSelectedIndex();
 				
-				// Add code to delete from DIYPRojectInfoList
+				myProjectInfo.remove(index);
+				myListDisplay = new ArrayList<>();
 				
+				
+				for(int i = 0; i < myProjectInfo.size(); i++) {
+					myListDisplay.add(myProjectInfo.get(i).toString());
+				}
+				
+				
+				myProjectRegister = new JList(myListDisplay.toArray());
+				myProjectRegister.setPreferredSize(new Dimension(635,555));
+				myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				myProjectRegister.setSelectedIndex(0);
+				myCenterPanel.add(myProjectRegister);
+				
+				
+				myCenterPanel.revalidate();
+				myCenterPanel.repaint();
 			}
 		});
 		
 	}
-	
-	
-	
-	
-	
-	public String toString() {
-		return "Hello";
-	}
-	
-	
-	
 	
 	
 }
