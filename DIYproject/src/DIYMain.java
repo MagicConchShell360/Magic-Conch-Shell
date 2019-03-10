@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -31,6 +32,12 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
+		myProjectInfo = new ArrayList<>();
+		DIYProjectInfo hello = new DIYProjectInfo("Window", BigDecimal.valueOf(500), 2, 3.5, new ArrayList<DIYMaterialInfo>());
+		
+		myProjectInfo.add(hello);
+		
+		
 		addWestPanelButtons();
 		
 		String[] test =  {"Project Name: Window --- Cost: $500 --- Priority: 2",
@@ -82,7 +89,11 @@ public class DIYMain extends DIYTemplate {
 		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				DIYAbout about = new DIYAbout();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYAbout about = new DIYAbout(temp);
 				about.setVisible(true);
 			}
 		});
@@ -106,8 +117,12 @@ public class DIYMain extends DIYTemplate {
 		myViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoRead about = new DIYInfoRead();
-//				view.setVisible(true);
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+				DIYInfoRead view = new DIYInfoRead(temp, myProjectInfo.get(0));
+				view.setVisible(true);
 			}
 		});
 		
@@ -121,4 +136,17 @@ public class DIYMain extends DIYTemplate {
 		});
 		
 	}
+	
+	
+	
+	
+	
+	public String toString() {
+		return "Hello";
+	}
+	
+	
+	
+	
+	
 }
