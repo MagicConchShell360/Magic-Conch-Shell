@@ -14,10 +14,10 @@ import javax.swing.JList;
  * @author Kevin Santos
  */
 public class DIYMain extends DIYTemplate {
-
 	
 	private JButton myAddButton;
 	private JButton myEditButton;
+	private JButton myViewButton;
 	private JButton myRemoveButton;
 	private JButton myImportButton;
 	private JButton myExportButton;
@@ -40,22 +40,14 @@ public class DIYMain extends DIYTemplate {
 						  "Project Name: Kitchen --- Cost: $7500 --- Priority: 5"
 		};
 		
-		
 		myProjectRegister = new JList(test);
-		
-		
 		myProjectRegister.setPreferredSize(new Dimension(635,555));
 		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
-		
 		myCenterPanel.add(myProjectRegister);
-		
 		
 		setUpButtonListeners();
 	}
-	
-	
-	
 	
 	/**
 	 * This method add the buttons to myWestPanel.
@@ -65,22 +57,20 @@ public class DIYMain extends DIYTemplate {
 	private void addWestPanelButtons() {
 		myAddButton = new JButton("Add");
 		myEditButton = new JButton("Edit");
+		myViewButton = new JButton("View");
 		myRemoveButton = new JButton("Remove");
 		myImportButton = new JButton("Import");
 		myExportButton = new JButton("Export");
 		myAboutButton = new JButton("About");
 		
-		
 		myWestPanel.add(myAddButton);
 		myWestPanel.add(myEditButton);
+		myWestPanel.add(myViewButton);
 		myWestPanel.add(myRemoveButton);
 		myWestPanel.add(myImportButton);
 		myWestPanel.add(myExportButton);
 		myWestPanel.add(myAboutButton);
 	}
-	
-	
-	
 	
 	/**
 	 * This method sets up the action listeners for the west panel buttons.
@@ -88,12 +78,47 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	protected void setUpButtonListeners() {
+
 		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 				DIYAbout about = new DIYAbout();
-				about.showAbout();
+				about.setVisible(true);
 			}
 		});
+		
+		myAddButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+//				DIYInfoEdit read = new DIYInfoEdit();
+//				read.setVisible(true);
+			}
+		});
+		
+		myEditButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+//				DIYInfoEdit edit = new DIYInfoEdit();
+//				edit.setVisible(true);
+			}
+		});
+		
+		myViewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+//				DIYInfoRead about = new DIYInfoRead();
+//				view.setVisible(true);
+			}
+		});
+		
+		myRemoveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				
+				// Add code to delete from DIYPRojectInfoList
+				
+			}
+		});
+		
 	}
 }
