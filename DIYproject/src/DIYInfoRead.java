@@ -1,4 +1,3 @@
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,12 +6,12 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
 public class DIYInfoRead extends DIYTemplate {
 
-	private ArrayList<DIYProjectInfo> myProjectInfoList;
+	private static final long serialVersionUID = -8160056479228037385L;
 	private DIYProjectInfo myProjectInfo;
 
 	private JFrame myParentFrame;
@@ -29,13 +28,14 @@ public class DIYInfoRead extends DIYTemplate {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
-	private JTextArea myMaterialInfoTextArea;
+	private JList<DIYMaterialInfo> myMaterialInfoJList;
 
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 
 		myParentFrame = theParentFrame;
 		myProjectInfo = theProjectInfo;
-
+		myMaterialInfoJList = new JList<>();
+		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setLayout(new GridLayout(8, 2));
 		setUpButtons();
@@ -99,17 +99,17 @@ public class DIYInfoRead extends DIYTemplate {
 
 	private void setUpComponents() {
 
-		myCenterPanel.add(myNameLabel);
-		myCenterPanel.add(myNameTextField);
+		myCenterPanel.add(myNameLabel, 0);
+		myCenterPanel.add(myNameTextField, 1);
 
-		myCenterPanel.add(myCostLabel);
-		myCenterPanel.add(myTotalCostTextField);
+		myCenterPanel.add(myCostLabel, 2);
+		myCenterPanel.add(myTotalCostTextField, 3);
 
-		myCenterPanel.add(myPriorityLabel);
-		myCenterPanel.add(myPriorityTextField);
+		myCenterPanel.add(myPriorityLabel, 4);
+		myCenterPanel.add(myPriorityTextField, 5);
 
-		myCenterPanel.add(myLengthLabel);
-		myCenterPanel.add(myLengthTextField);
+		myCenterPanel.add(myLengthLabel, 6);
+		myCenterPanel.add(myLengthTextField, 7);
 		
 		myCenterPanel.add(addButton);
 
@@ -122,7 +122,7 @@ public class DIYInfoRead extends DIYTemplate {
 		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
-			myMaterialInfoTextArea.setText(myProjectInfo.getMaterialList().get(i).toString());
+			
 		}
 	}
 	
