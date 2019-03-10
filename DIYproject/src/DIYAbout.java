@@ -24,8 +24,7 @@ public class DIYAbout extends JFrame {
 	private JLabel myDeveloperLabel;
 	private JButton myButton;
 	
-	public DIYAbout () {
-		
+	public DIYAbout (JFrame myParentFrame) {
 		myInfo = new DIYVersionInfo();
 		myPanel = new JPanel();
 		myVersionLabel = new JLabel();
@@ -34,12 +33,14 @@ public class DIYAbout extends JFrame {
 		
 		setLayout(new BorderLayout());
 		setTitle("About Us");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(400, 200);		
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setUpComponents();
 		setVisible(false);
+		
+		this.setLocationRelativeTo(myParentFrame);
 	}
 	
 	private void setUpComponents() {
