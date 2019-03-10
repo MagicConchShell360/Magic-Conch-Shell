@@ -7,21 +7,18 @@ import javax.swing.JFrame;
 /**
  * This is the GUI class for importing files.
  * 
- * @author Kevin Santos
+ * @author Kevin Santos, Joseph Joo
  */
-public class DIYExport extends DIYTemplate {
+public class DIYExport extends DIYTemplateV2 {
 	
 	private JFrame myParentFrame;
 	private JButton exportButton;
 	private JButton browseButton;
 	
 	public DIYExport(JFrame theParentFrame) {
-		myParentFrame = theParentFrame;
+		super(theParentFrame);
 		exportButton = new JButton("Export");
 		browseButton = new JButton("Browse");
-		
-		setLocationRelativeTo(theParentFrame);
-		theParentFrame.setEnabled(false);
 		
 		setUpButtons();
 	}
