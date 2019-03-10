@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JRootPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * This is the GUI class for the main window.
@@ -27,6 +28,7 @@ public class DIYMain extends DIYTemplate {
 	private JButton myAboutButton;
 	private JList<String> myProjectRegister;
 	private ArrayList<DIYProjectInfo> myProjectInfo;
+	private ArrayList<String> myListDisplay;
 
 	/**
 	 * Sets up all the components for the main window.
@@ -43,31 +45,30 @@ public class DIYMain extends DIYTemplate {
 		initiateProjects();
 		addWestPanelButtons();
 		setUpButtonListeners();
-		String[] listDisplay = new String[myProjectInfo.size()];
-		
-		for(int i = 0; i < myProjectInfo.size(); i++) {
-			System.out.println(myProjectInfo.get(i).toString());
-			listDisplay[i] = myProjectInfo.get(i).toString();
-		}
-		
-		
-		
-		String[] test =  {"Project Name: Window --- Cost: $500 --- Priority: 2",
-						  "Project Name: Chair --- Cost: $25 --- Priority: 4",
-						  "Project Name: Table --- Cost: $150 --- Priority: 3",
-						  "Project Name: Desk --- Cost: $100 --- Priority: 2",
-						  "Project Name: Kitchen --- Cost: $7500 --- Priority: 5"
-		};
-		
-		myProjectRegister = new JList(listDisplay);
-		myProjectRegister.setPreferredSize(new Dimension(635,555));
-		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		myCenterPanel.add(myProjectRegister);
-		
-		
+		initProjectRegister();
 	}
 	
+	private void initProjectRegister() {
+		myListDisplay = new ArrayList<>();
+		
+		
+		for(int i = 0; i < myProjectInfo.size(); i++) {
+			myListDisplay.add(myProjectInfo.get(i).toString());
+		}
+		
+		myProjectRegister = new JList(myListDisplay.toArray());
+		myProjectRegister.setPreferredSize(new Dimension(635,555));
+		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		myProjectRegister.setSelectedIndex(0);
+		myCenterPanel.add(myProjectRegister);
+	}
+	
+	/**
+	 * Sets values to ProjectList
+	 * 
+	 * @author Kevin Santos
+	 */
 	private void initiateProjects() {
 		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
 				2, 7.5, new ArrayList<DIYMaterialInfo>()));
@@ -158,9 +159,28 @@ public class DIYMain extends DIYTemplate {
 		myRemoveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
+				myCenterPanel.removeAll();
+				int index = myProjectRegister.getSelectedIndex();
 				
-				// Add code to delete from DIYPRojectInfoList
+				myProjectInfo.remove(index);
+				myListDisplay = new ArrayList<>();
 				
+				
+				for(int i = 0; i < myProjectInfo.size(); i++) {
+					myListDisplay.add(myProjectInfo.get(i).toString());
+				}
+				
+				
+				myProjectRegister = new JList(myListDisplay.toArray());
+				myProjectRegister.setPreferredSize(new Dimension(635,555));
+				myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				myProjectRegister.setSelectedIndex(0);
+				myCenterPanel.add(myProjectRegister);
+				
+				
+				myCenterPanel.revalidate();
+				myCenterPanel.repaint();
 			}
 		});
 		
