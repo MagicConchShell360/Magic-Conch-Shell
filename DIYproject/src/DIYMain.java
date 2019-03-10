@@ -54,6 +54,7 @@ public class DIYMain extends DIYTemplate {
 		
 		for(int i = 0; i < myProjectInfo.size(); i++) {
 			myListDisplay.add(myProjectInfo.get(i).toString());
+			System.out.println(myProjectInfo.get(i).toString());
 		}
 		
 		myProjectRegister = new JList(myListDisplay.toArray());
@@ -131,7 +132,11 @@ public class DIYMain extends DIYTemplate {
 		myAddButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoEdit read = new DIYInfoEdit();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit read = new DIYInfoEdit(temp);
 //				read.setVisible(true);
 			}
 		});
@@ -139,7 +144,11 @@ public class DIYMain extends DIYTemplate {
 		myEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoEdit edit = new DIYInfoEdit();
+				JButton sourceButton = (JButton) event.getSource();
+				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
+						.getParent().getParent();
+				
+//				DIYInfoEdit edit = new DIYInfoEdit(temp);
 //				edit.setVisible(true);
 			}
 		});
