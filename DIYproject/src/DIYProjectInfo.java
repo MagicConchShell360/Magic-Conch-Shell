@@ -17,11 +17,13 @@ public class DIYProjectInfo {
 	 * 
 	 * @param theMaterialInfoList
 	 */
-	public DIYProjectInfo(String thisName, BigDecimal thisCost, int thisPriority, double thisLength, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
-		myName = "";
-		myTotalCost = new BigDecimal(0);
-		myPriority = 0;
-		myLength = 0.0;
+	public DIYProjectInfo(String theName, BigDecimal theCost, 
+						  int thePriority, double theLength, 
+						  ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+		myName = theName;
+		myTotalCost = theCost;
+		myPriority = thePriority;
+		myLength = theLength;
 		myMaterialInfoList = theMaterialInfoList;
 	}
 
@@ -59,15 +61,9 @@ public class DIYProjectInfo {
 	
 	@Override
 	public String toString() {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("Project Name: " + getName());
-		sb.append("\tTotal Cost: " + getTotalCost());
-		sb.append("\tPriority: " + getPriority());
-		sb.append("\tLength: " + getLength());
-		
-		return sb.toString();
-		
+		String projectInfo = "";
+		projectInfo.format("Project Name: %s\tTotal Cost: %.2f\t Priority: %d\t Length: %f", 
+				getName(), getTotalCost(), getPriority(), getLength());
+		return projectInfo;
 	}
 }
