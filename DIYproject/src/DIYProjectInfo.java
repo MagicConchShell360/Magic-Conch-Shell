@@ -56,5 +56,18 @@ public class DIYProjectInfo {
 	protected ArrayList<DIYMaterialInfo> getMaterialList() {
 		return myMaterialInfoList;
 	}
-
+	
+	@Override
+	public String toString() {
+		String projectInfo = "";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Project Name: " + getName());
+		sb.append("\tTotal Cost: " + getTotalCost());
+		sb.append("\tPriority: " + getPriority());
+		sb.append("\tLength: " + getLength());
+		
+		return projectInfo;
+		
+	}
 }
