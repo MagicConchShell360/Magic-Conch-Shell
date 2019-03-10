@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ public class DIYInfoRead extends DIYTemplate {
 	private ArrayList<DIYProjectInfo> myProjectInfoList;
 	private DIYProjectInfo myProjectInfo;
 
+	private JFrame myParentFrame;
+	
+	private JButton backButton;
 	private JButton addButton;
-	private JButton removeButton;
-	private JButton editButton;
 
 	private JLabel myNameLabel;
 	private JLabel myCostLabel;
@@ -29,21 +31,21 @@ public class DIYInfoRead extends DIYTemplate {
 	private JTextField myLengthTextField;
 	private JTextArea myMaterialInfoTextArea;
 
-	public DIYInfoRead(JFrame thisParentFrame, DIYProjectInfo theProjectInfo) {
+	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 
+		myParentFrame = theParentFrame;
 		myProjectInfo = theProjectInfo;
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setLayout(new GridLayout(8, 2));
 		setUpButtons();
 		setUpLabels();
 		setUpTextFields();
-		setUpProjectInfoPanel();
-		setUpMaterialInfoPanel();
+		setUpComponents();
 		populateTextFields();
 		
-		setLocationRelativeTo(thisParentFrame);
-		thisParentFrame.setEnabled(false);
+		setLocationRelativeTo(theParentFrame);
+		theParentFrame.setEnabled(false);
 
 	}
 
@@ -56,20 +58,16 @@ public class DIYInfoRead extends DIYTemplate {
 
 			}
 		});
+		
+		backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				myParentFrame.setEnabled(true);
+				if (isVisible()) setVisible(false);
+			}
+		});
 
-		/*
-		 * removeButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(final ActionEvent theEvent) {
-		 * 
-		 * } });
-		 * 
-		 * editButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(final ActionEvent theEvent) {
-		 * 
-		 * } });
-		 */
 	}
 
 	private void setUpLabels() {
@@ -88,13 +86,9 @@ public class DIYInfoRead extends DIYTemplate {
 	private void setUpTextFields() {
 		
 		myNameTextField = new JTextField();
-		myNameTextField.setMinimumSize(new Dimension(250, 100));
 		myTotalCostTextField = new JTextField();
-		myTotalCostTextField.setMinimumSize(new Dimension(250, 100));
 		myPriorityTextField = new JTextField();
-		myPriorityTextField.setMinimumSize(new Dimension(250, 100));
 		myLengthTextField = new JTextField();
-		myLengthTextField.setMinimumSize(new Dimension(250, 100));
 
 		myNameTextField.setEditable(false);
 		myTotalCostTextField.setEditable(false);
@@ -103,7 +97,7 @@ public class DIYInfoRead extends DIYTemplate {
 
 	}
 
-	private void setUpProjectInfoPanel() {
+	private void setUpComponents() {
 
 		myCenterPanel.add(myNameLabel);
 		myCenterPanel.add(myNameTextField);
@@ -116,10 +110,8 @@ public class DIYInfoRead extends DIYTemplate {
 
 		myCenterPanel.add(myLengthLabel);
 		myCenterPanel.add(myLengthTextField);
-
-	}
-
-	private void setUpMaterialInfoPanel() {
+		
+		myCenterPanel.add(addButton);
 
 	}
 
@@ -133,4 +125,5 @@ public class DIYInfoRead extends DIYTemplate {
 			myMaterialInfoTextArea.setText(myProjectInfo.getMaterialList().get(i).toString());
 		}
 	}
+	
 }

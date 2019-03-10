@@ -59,7 +59,7 @@ public class DIYProjectInfo {
 	
 	@Override
 	public String toString() {
-		String projectInfo = "";
+		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Project Name: " + getName());
@@ -67,7 +67,7 @@ public class DIYProjectInfo {
 		sb.append("\tPriority: " + getPriority());
 		sb.append("\tLength: " + getLength());
 		
-		return projectInfo;
+		return sb.toString();
 		
 	}
 }
