@@ -1,6 +1,11 @@
 import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class DIYMaterialInfo {
 
@@ -8,6 +13,7 @@ public class DIYMaterialInfo {
 	private BigDecimal myPrice; 
 	private BigDecimal myLength; 
 	private int myQuantity;
+
 	
 	/*
 	 * Constructor for all the material information 
@@ -18,6 +24,7 @@ public class DIYMaterialInfo {
 		myPrice = thePrice;  
 		myLength = theLength; 
 		myQuantity = theQuantity;
+		
 	}
 	
 	/*
@@ -50,5 +57,16 @@ public class DIYMaterialInfo {
 	}
 	public void setLength(BigDecimal theLength) {
 		myLength = theLength;
+	}
+	
+	@Override 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Material Name: " + getName());
+		sb.append("\tPrice Cost: " + getPrice());
+		sb.append("\tQuantity: " + getQuantity());
+		sb.append("\tLength: " + getLength());
+		
+		return sb.toString();
 	}
 }
