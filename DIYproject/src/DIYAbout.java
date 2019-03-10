@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
- * Team Magic Conch Shell
- * TCSS 360
+/**
+ * 
+ * @author Kevin Santos, Joseph Joo
  */
-public class DIYAbout extends JFrame{
+public class DIYAbout extends JFrame {
 	
 	/**
 	 * 
@@ -62,9 +62,5 @@ public class DIYAbout extends JFrame{
 				if (isVisible()) setVisible(false);
 			}
 		});
-	}
-
-	public void showAbout() {
-		if (!isVisible()) setVisible(true);
 	}
 }
