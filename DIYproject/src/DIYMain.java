@@ -33,10 +33,6 @@ public class DIYMain extends DIYTemplate {
 	 */
 	public DIYMain() {
 		myProjectInfo = new ArrayList<>();
-		DIYProjectInfo hello = new DIYProjectInfo("Window", BigDecimal.valueOf(500), 2, 3.5, new ArrayList<DIYMaterialInfo>());
-		
-		myProjectInfo.add(hello);
-		
 		
 		addWestPanelButtons();
 		
@@ -54,6 +50,23 @@ public class DIYMain extends DIYTemplate {
 		myCenterPanel.add(myProjectRegister);
 		
 		setUpButtonListeners();
+	}
+	
+	private void initiateProjects() {
+		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
+				2, 7.5, new ArrayList<DIYMaterialInfo>()));
+
+		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
+				4, 5.5, new ArrayList<DIYMaterialInfo>()));
+		
+		myProjectInfo.add(new DIYProjectInfo("Table", BigDecimal.valueOf(150),
+				3, 5.0, new ArrayList<DIYMaterialInfo>()));
+		
+		myProjectInfo.add(new DIYProjectInfo("Desk", BigDecimal.valueOf(100),
+				2, 12.5, new ArrayList<DIYMaterialInfo>()));
+		
+		myProjectInfo.add(new DIYProjectInfo("Kitchen", BigDecimal.valueOf(7500),
+				5, 63.5, new ArrayList<DIYMaterialInfo>()));
 	}
 	
 	/**
@@ -136,17 +149,6 @@ public class DIYMain extends DIYTemplate {
 		});
 		
 	}
-	
-	
-	
-	
-	
-	public String toString() {
-		return "Hello";
-	}
-	
-	
-	
 	
 	
 }

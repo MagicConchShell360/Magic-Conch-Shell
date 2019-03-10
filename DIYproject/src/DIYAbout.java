@@ -14,10 +14,7 @@ import javax.swing.JPanel;
  */
 public class DIYAbout extends JFrame {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 501364500319788870L;
 	private DIYVersionInfo myInfo;
 	private JPanel myPanel;
 	private JLabel myVersionLabel;
@@ -40,7 +37,8 @@ public class DIYAbout extends JFrame {
 		setUpComponents();
 		setVisible(false);
 		
-		this.setLocationRelativeTo(myParentFrame);
+		setLocationRelativeTo(myParentFrame);
+		myParentFrame.setEnabled(false);
 	}
 	
 	private void setUpComponents() {
