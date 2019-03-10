@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JRootPane;
 
 /**
  * This is the GUI class for the main window.
@@ -32,9 +34,23 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
-		myProjectInfo = new ArrayList<>();
+		// Centers the window to the screen
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
+		// Initiates components
+		myProjectInfo = new ArrayList<>();
+		initiateProjects();
 		addWestPanelButtons();
+		setUpButtonListeners();
+		String[] listDisplay = new String[myProjectInfo.size()];
+		
+		for(int i = 0; i < myProjectInfo.size(); i++) {
+			System.out.println(myProjectInfo.get(i).toString());
+			listDisplay[i] = myProjectInfo.get(i).toString();
+		}
+		
+		
 		
 		String[] test =  {"Project Name: Window --- Cost: $500 --- Priority: 2",
 						  "Project Name: Chair --- Cost: $25 --- Priority: 4",
@@ -43,13 +59,13 @@ public class DIYMain extends DIYTemplate {
 						  "Project Name: Kitchen --- Cost: $7500 --- Priority: 5"
 		};
 		
-		myProjectRegister = new JList(test);
+		myProjectRegister = new JList(listDisplay);
 		myProjectRegister.setPreferredSize(new Dimension(635,555));
 		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		myCenterPanel.add(myProjectRegister);
 		
-		setUpButtonListeners();
+		
 	}
 	
 	private void initiateProjects() {
