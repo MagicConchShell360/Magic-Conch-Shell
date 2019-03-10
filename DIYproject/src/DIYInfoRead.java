@@ -1,46 +1,136 @@
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-public class DIYInfoRead {
-	
+public class DIYInfoRead extends DIYTemplate {
+
+	private ArrayList<DIYProjectInfo> myProjectInfoList;
 	private DIYProjectInfo myProjectInfo;
-	private JFrame frame;
-	
-	public DIYInfoRead() {
-		frame.setSize(800, 600);
-		frame.setTitle("Project Information (Edit-mode)");
-		frame.setLayout(new BorderLayout());
-		
-		setUpComponents();
-		
-		frame.pack();
-		frame.setVisible(true);
+
+	private JButton addButton;
+	private JButton removeButton;
+	private JButton editButton;
+
+	private JLabel myNameLabel;
+	private JLabel myCostLabel;
+	private JLabel myPriorityLabel;
+	private JLabel myLengthLabel;
+
+	private JTextField myNameTextField;
+	private JTextField myTotalCostTextField;
+	private JTextField myPriorityTextField;
+	private JTextField myLengthTextField;
+
+	public DIYInfoRead(JFrame theInfoReadFrame) {
+
 	}
-	
-	
-	public void setUpComponents() {
 
-		JPanel panel = new JPanel();
-		panel.setSize(100, 800);
-		panel.setLayout(new GridLayout());
+	public DIYInfoRead(ArrayList<DIYProjectInfo> theProjectInfoList) {
 
-		JButton backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
+		myProjectInfoList = theProjectInfoList;
 
+	}
+
+	public DIYInfoRead(DIYProjectInfo theProjectInfo) {
+
+		myProjectInfo = theProjectInfo;
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		setUpButtons();
+		setUpLabels();
+		setUpTextFields();
+		setUpProjectInfoPanel();
+		setUpMaterialInfoPanel();
+		populateTextFields();
+
+	}
+
+	private void setUpButtons() {
+
+		addButton = new JButton("Add");
+		// removeButton = new JButton("Remove");
+		// editButton = new JButton("Edit");
+
+		addButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent theEvent) {
-				frame.setVisible(false);
-			}
+			public void actionPerformed(final ActionEvent theEvent) {
 
+			}
 		});
 
-		panel.add(backButton, 0);
-		frame.add(panel, BorderLayout.WEST);
+		/*
+		 * removeButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(final ActionEvent theEvent) {
+		 * 
+		 * } });
+		 * 
+		 * editButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(final ActionEvent theEvent) {
+		 * 
+		 * } });
+		 */
+	}
+
+	private void setUpLabels() {
+
+		myNameLabel = new JLabel();
+		myCostLabel = new JLabel();
+		myPriorityLabel = new JLabel();
+		myLengthLabel = new JLabel();
+
+		myNameLabel.setText("Project Name: ");
+		myCostLabel.setText("Total Cost: ");
+		myPriorityLabel.setText("Priority: ");
+		myLengthLabel.setText("Total Length: ");
+	}
+
+	private void setUpTextFields() {
+
+		myNameTextField = new JTextField();
+		myTotalCostTextField = new JTextField();
+		myPriorityTextField = new JTextField();
+		myLengthTextField = new JTextField();
+
+		myNameTextField.setEditable(false);
+		myTotalCostTextField.setEditable(false);
+		myPriorityTextField.setEditable(false);
+		myLengthTextField.setEditable(false);
+
+		myNameTextField.setText(myProjectInfo.getName());
+		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
+		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
+		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
+	}
+
+	private void setUpProjectInfoPanel() {
+
+		myCenterPanel.add(myNameLabel);
+		myCenterPanel.add(myNameTextField);
+
+		myCenterPanel.add(myCostLabel);
+		myCenterPanel.add(myTotalCostTextField);
+
+		myCenterPanel.add(myPriorityLabel);
+		myCenterPanel.add(myPriorityTextField);
+
+		myCenterPanel.add(myLengthLabel);
+		myCenterPanel.add(myLengthTextField);
+
+	}
+
+	private void setUpMaterialInfoPanel() {
+
+	}
+
+	private void populateTextFields() {
+
 	}
 }
