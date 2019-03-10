@@ -1,9 +1,16 @@
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+
+
 
 public class DIYMaterialRead extends DIYTemplate {
 	private JLabel myNameLabel; 
@@ -16,17 +23,19 @@ public class DIYMaterialRead extends DIYTemplate {
 	private JLabel myQuantityTitle;
 	private JLabel myLengthTitle; 
 	
+	private JFrame myParentFrame; 
+	private JButton myButton;
 	private DIYMaterialInfo myInfo;
 	
-	
-	
-	public DIYMaterialRead(DIYMaterialInfo theInfo) {
+	public DIYMaterialRead(DIYMaterialInfo theInfo, JFrame theFrame) {
 		myNameTitle = new JLabel("Material Name:");
 		myNameTitle.setBorder(BorderFactory.createEtchedBorder());
+		myNameTitle.setVerticalAlignment(JLabel.TOP);
 		myNameLabel = new JLabel("name");
 		
 		myPriceTitle = new JLabel("Price: ");
 		myPriceTitle.setBorder(BorderFactory.createEtchedBorder());
+		myPriceTitle.setVerticalAlignment(JLabel.BOTTOM);
 		myPriceLabel = new JLabel("price");
 		
 		myQuantityTitle = new JLabel("Quantity: ");
@@ -40,6 +49,15 @@ public class DIYMaterialRead extends DIYTemplate {
 		addJLabels();
 		myInfo = theInfo; //constructing the material info. 
 		
+		myParentFrame = theFrame;
+		
+		myButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                myParentFrame.setEnabled(true);
+                if (isVisible()) setVisible(false);
+            }
+        });
 	}
 	
 	/*
