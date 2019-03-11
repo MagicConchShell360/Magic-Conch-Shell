@@ -9,6 +9,8 @@ public class DIYImport extends DIYTemplate {
 	
 	public DIYImport(JFrame thisParentFrame) {
 		
+		
+		
 	}
 
 }
