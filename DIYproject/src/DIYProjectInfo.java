@@ -8,7 +8,6 @@ public class DIYProjectInfo {
 	private double myLength;
 	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	
-	
 	/**
 	 * DIYProjectInfo is the utility class for DIY Manager. This class contains
 	 * all the pertinent information for the client's projects. DIYProjectInfo
