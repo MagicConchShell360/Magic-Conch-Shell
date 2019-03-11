@@ -1,7 +1,8 @@
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,14 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
-public class DIYInfoRead extends DIYTemplate {
+public class DIYInfoRead extends DIYTemplateV2 {
 
 	private static final long serialVersionUID = -8160056479228037385L;
 	private DIYProjectInfo myProjectInfo;
-
 	private JFrame myParentFrame;
-	
-	private JButton backButton;
+
 	private JButton addButton;
 
 	private JLabel myNameLabel;
@@ -28,25 +27,12 @@ public class DIYInfoRead extends DIYTemplate {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
-	private JList<DIYMaterialInfo> myMaterialInfoJList;
+	private JList<DIYMaterialInfo> myJList;
 
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
-
-		myParentFrame = theParentFrame;
+		super(theParentFrame);
 		myProjectInfo = theProjectInfo;
-		myMaterialInfoJList = new JList<>();
-		
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setLayout(new GridLayout(8, 2));
-		setUpButtons();
-		setUpLabels();
-		setUpTextFields();
 		setUpComponents();
-		populateTextFields();
-		
-		setLocationRelativeTo(theParentFrame);
-		theParentFrame.setEnabled(false);
-
 	}
 
 	private void setUpButtons() {
@@ -55,19 +41,10 @@ public class DIYInfoRead extends DIYTemplate {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-
+				DIYMaterialInfo materialInfo = new DIYMaterialInfo("Material", new BigDecimal(7), 7, new BigDecimal(7));
+				// TODO FIX ME!!!
 			}
 		});
-		
-		backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				myParentFrame.setEnabled(true);
-				if (isVisible()) setVisible(false);
-			}
-		});
-
 	}
 
 	private void setUpLabels() {
@@ -84,7 +61,7 @@ public class DIYInfoRead extends DIYTemplate {
 	}
 
 	private void setUpTextFields() {
-		
+
 		myNameTextField = new JTextField();
 		myTotalCostTextField = new JTextField();
 		myPriorityTextField = new JTextField();
@@ -97,22 +74,34 @@ public class DIYInfoRead extends DIYTemplate {
 
 	}
 
+	private void setUpMaterialList() {
+		myJList = new JList();
+	}
+
 	private void setUpComponents() {
 
-		myCenterPanel.add(myNameLabel, 0);
-		myCenterPanel.add(myNameTextField, 1);
+		myCenterPanel.setLayout(new GridLayout(8, 2));
 
-		myCenterPanel.add(myCostLabel, 2);
-		myCenterPanel.add(myTotalCostTextField, 3);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		myCenterPanel.add(myPriorityLabel, 4);
-		myCenterPanel.add(myPriorityTextField, 5);
+		setUpButtons();
+		setUpLabels();
+		setUpTextFields();
 
-		myCenterPanel.add(myLengthLabel, 6);
-		myCenterPanel.add(myLengthTextField, 7);
-		
+		myCenterPanel.add(myNameLabel);
+		myCenterPanel.add(myNameTextField);
+
+		myCenterPanel.add(myCostLabel);
+		myCenterPanel.add(myTotalCostTextField);
+
+		myCenterPanel.add(myPriorityLabel);
+		myCenterPanel.add(myPriorityTextField);
+
+		myCenterPanel.add(myLengthLabel);
+		myCenterPanel.add(myLengthTextField);
+
 		myCenterPanel.add(addButton);
-
+		populateTextFields();
 	}
 
 	private void populateTextFields() {
@@ -122,8 +111,8 @@ public class DIYInfoRead extends DIYTemplate {
 		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
-			
+
 		}
 	}
-	
+
 }

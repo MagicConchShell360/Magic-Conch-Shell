@@ -1,4 +1,3 @@
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,12 +6,12 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
-public class DIYInfoEdit extends DIYTemplate {
+public class DIYInfoEdit extends DIYTemplateV2 {
 
-	private ArrayList<DIYProjectInfo> myProjectInfoList;
+	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	private DIYProjectInfo myProjectInfo;
 
 	private JFrame myParentFrame;
@@ -30,24 +29,19 @@ public class DIYInfoEdit extends DIYTemplate {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
-	private JTextArea myMaterialInfoTextArea;
-
+	private JList<DIYMaterialInfo> myJList;
+	
+	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+		super(theParentFrame);
+		myMaterialInfoList = theMaterialInfoList;
+		setUpComponents();
+	}
+	
 	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
-
+		super(theParentFrame);
 		myParentFrame = theParentFrame;
 		myProjectInfo = theProjectInfo;
-
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setLayout(new GridLayout(8, 2));
-		setUpButtons();
-		setUpLabels();
-		setUpTextFields();
 		setUpComponents();
-		populateTextFields();
-		
-		setLocationRelativeTo(theParentFrame);
-		theParentFrame.setEnabled(false);
-
 	}
 
 	private void setUpButtons() {
@@ -78,13 +72,9 @@ public class DIYInfoEdit extends DIYTemplate {
 	private void setUpTextFields() {
 		
 		myNameTextField = new JTextField();
-		myNameTextField.setMinimumSize(new Dimension(250, 100));
 		myTotalCostTextField = new JTextField();
-		myTotalCostTextField.setMinimumSize(new Dimension(250, 100));
 		myPriorityTextField = new JTextField();
-		myPriorityTextField.setMinimumSize(new Dimension(250, 100));
 		myLengthTextField = new JTextField();
-		myLengthTextField.setMinimumSize(new Dimension(250, 100));
 
 		myNameTextField.setEditable(true);
 		myTotalCostTextField.setEditable(true);
@@ -94,7 +84,15 @@ public class DIYInfoEdit extends DIYTemplate {
 	}
 
 	private void setUpComponents() {
-
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		myCenterPanel.setLayout(new GridLayout(8, 2));
+		
+		setUpButtons();
+		setUpLabels();
+		setUpTextFields();
+		setUpComponents();
+	
 		myCenterPanel.add(myNameLabel);
 		myCenterPanel.add(myNameTextField);
 
@@ -108,7 +106,10 @@ public class DIYInfoEdit extends DIYTemplate {
 		myCenterPanel.add(myLengthTextField);
 		
 		myCenterPanel.add(addButton);
-
+		myCenterPanel.add(removeButton);
+		myCenterPanel.add(editButton);
+		
+		populateTextFields();
 	}
 
 	private void populateTextFields() {
@@ -118,7 +119,7 @@ public class DIYInfoEdit extends DIYTemplate {
 		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
-			myMaterialInfoTextArea.setText(myProjectInfo.getMaterialList().get(i).toString());
+			//TODO FIX ME!!!
 		}
 	}
 }
