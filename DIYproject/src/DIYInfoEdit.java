@@ -1,95 +1,125 @@
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
-public class DIYInfoEdit {
-	
+public class DIYInfoEdit extends DIYTemplateV2 {
+
+	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	private DIYProjectInfo myProjectInfo;
-	private JFrame frame;
-	//private ArrayList<MaterialInfo> myListOfProjects;
+
+	private JFrame myParentFrame;
 	
-	public DIYInfoEdit(ArrayList projectInfoList) {
-		
-		//myListOfProjects = new ArrayList<>();
-		//myListOfProjects.addAll(projectInfoList);
-		
-		frame.setSize(800, 600);
-		frame.setTitle("Project Information (Edit-mode)");
-		frame.setLayout(new BorderLayout());
-		
+	private JButton addButton;
+	private JButton removeButton;
+	private JButton editButton;
+
+	private JLabel myNameLabel;
+	private JLabel myCostLabel;
+	private JLabel myPriorityLabel;
+	private JLabel myLengthLabel;
+
+	private JTextField myNameTextField;
+	private JTextField myTotalCostTextField;
+	private JTextField myPriorityTextField;
+	private JTextField myLengthTextField;
+	private JList<DIYMaterialInfo> myJList;
+	
+	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+		super(theParentFrame);
+		myMaterialInfoList = theMaterialInfoList;
 		setUpComponents();
-		
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
-	public void setUpComponents() {
-		
-		GridLayout buttonGrid = new GridLayout();
-		buttonGrid.setColumns(1);
-		buttonGrid.setRows(10);
-		
-		JPanel westPanel = new JPanel();
-		JPanel centerPanel = new JPanel();
-		JPanel eastPanel = new JPanel();
-		
-		westPanel.setSize(100, 800);
-		centerPanel.setSize(450, 800);
-		eastPanel.setSize(50, 800);
-		
-		eastPanel.setLayout(buttonGrid);
-		
-		JButton addButton = new JButton("Add Material");
-		JButton viewButton = new JButton("View Material");
-		JButton removeButton = new JButton("Remove Material");
-		JButton backButton = new JButton("Back");
-		
+	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
+		super(theParentFrame);
+		myParentFrame = theParentFrame;
+		myProjectInfo = theProjectInfo;
+		setUpComponents();
+	}
+
+	private void setUpButtons() {
+
+		addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent theEvent) {
-				
-			}
-		});
-		
-		viewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent theEvent) {
-				
-			}
-		});
-		
-		removeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent theEvent) {
-				
-			}
-		});
-		
-		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent theEvent) {
 
-			@Override
-			public void actionPerformed(ActionEvent theEvent) {
-				frame.setVisible(false);
 			}
-			
 		});
-		
-		westPanel.add(backButton);
-		eastPanel.add(addButton, 7);
-		eastPanel.add(viewButton, 8);
-		eastPanel.add(removeButton, 9);
-		
-		frame.add(westPanel, BorderLayout.WEST);
-		frame.add(centerPanel, BorderLayout.CENTER);
-		frame.add(eastPanel, BorderLayout.EAST);
+
 	}
 
+	private void setUpLabels() {
+
+		myNameLabel = new JLabel();
+		myCostLabel = new JLabel();
+		myPriorityLabel = new JLabel();
+		myLengthLabel = new JLabel();
+
+		myNameLabel.setText("Project Name: ");
+		myCostLabel.setText("Total Cost: ");
+		myPriorityLabel.setText("Priority: ");
+		myLengthLabel.setText("Total Length: ");
+	}
+
+	private void setUpTextFields() {
+		
+		myNameTextField = new JTextField();
+		myTotalCostTextField = new JTextField();
+		myPriorityTextField = new JTextField();
+		myLengthTextField = new JTextField();
+
+		myNameTextField.setEditable(true);
+		myTotalCostTextField.setEditable(true);
+		myPriorityTextField.setEditable(true);
+		myLengthTextField.setEditable(true);
+
+	}
+
+	private void setUpComponents() {
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		myCenterPanel.setLayout(new GridLayout(8, 2));
+		
+		setUpButtons();
+		setUpLabels();
+		setUpTextFields();
+		setUpComponents();
+	
+		myCenterPanel.add(myNameLabel);
+		myCenterPanel.add(myNameTextField);
+
+		myCenterPanel.add(myCostLabel);
+		myCenterPanel.add(myTotalCostTextField);
+
+		myCenterPanel.add(myPriorityLabel);
+		myCenterPanel.add(myPriorityTextField);
+
+		myCenterPanel.add(myLengthLabel);
+		myCenterPanel.add(myLengthTextField);
+		
+		myCenterPanel.add(addButton);
+		myCenterPanel.add(removeButton);
+		myCenterPanel.add(editButton);
+		
+		populateTextFields();
+	}
+
+	private void populateTextFields() {
+		myNameTextField.setText(myProjectInfo.getName());
+		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
+		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
+		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
+
+		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
+			//TODO FIX ME!!!
+		}
+	}
 }

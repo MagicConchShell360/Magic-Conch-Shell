@@ -8,33 +8,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
- * Team Magic Conch Shell
- * TCSS 360
+/**
+ * 
+ * @author Kevin Santos, Joseph Joo
  */
-public class DIYAbout extends JFrame{
+public class DIYAbout extends JFrame {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 501364500319788870L;
 	private DIYVersionInfo myInfo;
 	private JPanel myPanel;
 	private JLabel myVersionLabel;
 	private JLabel myDeveloperLabel;
 	private JButton myButton;
+	private JFrame myParentFrame;
 	
-	public DIYAbout () {
-		
+	public DIYAbout (JFrame thisParentFrame) {
 		myInfo = new DIYVersionInfo();
 		myPanel = new JPanel();
 		myVersionLabel = new JLabel();
 		myDeveloperLabel = new JLabel();
 		myButton = new JButton();
+		myParentFrame = thisParentFrame;
 		
 		setLayout(new BorderLayout());
 		setTitle("About Us");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(400, 200);		
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -59,12 +57,9 @@ public class DIYAbout extends JFrame{
 		myButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
+				myParentFrame.setEnabled(true);
 				if (isVisible()) setVisible(false);
 			}
 		});
-	}
-
-	public void showAbout() {
-		if (!isVisible()) setVisible(true);
 	}
 }

@@ -1,9 +1,14 @@
+
+/**
+ * This is a driver class to run DIYMain.
+ * 
+ * @author Kevin Santos
+ */
 public class DIYDriver {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		DIYMain control = new DIYMain();	
-		control.show();
+		control.setVisible(true);
 	}
 
 }
