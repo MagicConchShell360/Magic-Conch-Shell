@@ -142,7 +142,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		setUpLabels();
 		setUpTextFields();
 		populateTextFields();
-		//setUpMaterialList();
+		setUpMaterialList();
 
 		northPanel.add(myNameLabel);
 		northPanel.add(myNameTextField);
@@ -159,7 +159,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		southPanel.add(addButton);
 		southPanel.add(removeButton);
 		southPanel.add(editButton);
-		//southPanel.add(myJList, BorderLayout.SOUTH);
+		southPanel.add(myJList);
 		
 		myCenterPanel.setLayout(new BorderLayout());
 		myCenterPanel.add(northPanel, BorderLayout.NORTH);
@@ -175,6 +175,6 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
 		}
-		//myJList = new JList(myListDisplay.toArray());
+		myJList = new JList(myListDisplay.toArray());
 	}
 }
