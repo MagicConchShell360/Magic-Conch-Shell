@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JRootPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -29,6 +29,7 @@ public class DIYMain extends DIYTemplate {
 	private JList<String> myProjectRegister;
 	private ArrayList<DIYProjectInfo> myProjectInfo;
 	private ArrayList<String> myListDisplay;
+	private JFrame myCurrentFrame;
 
 	/**
 	 * Sets up all the components for the main window.
@@ -36,6 +37,8 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
+		myCurrentFrame = this;
+		
 		// Centers the window to the screen
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -121,11 +124,7 @@ public class DIYMain extends DIYTemplate {
 		myAddButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-//				DIYInfoEdit read = new DIYInfoEdit(temp, myProjectInfo);
+//				DIYInfoEdit read = new DIYInfoEdit(myCurrentFrame, myProjectInfo);
 //				read.setVisible(true);
 			}
 		});
@@ -133,11 +132,7 @@ public class DIYMain extends DIYTemplate {
 		myEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-//				DIYInfoEdit edit = new DIYInfoEdit(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+//				DIYInfoEdit edit = new DIYInfoEdit(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
 //				edit.setVisible(true);
 			}
 		});
@@ -145,11 +140,7 @@ public class DIYMain extends DIYTemplate {
 		myViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-				DIYInfoRead view = new DIYInfoRead(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				DIYInfoRead view = new DIYInfoRead(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
 				view.setVisible(true);
 			}
 		});
@@ -170,24 +161,18 @@ public class DIYMain extends DIYTemplate {
 		myImportButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
 				
-				DIYImport about = new DIYImport(temp);
-				about.setVisible(true);
+				// Import Code
+				
 			}
 		});
 		
 		myExportButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
+
+				// Export Code
 				
-				DIYExport about = new DIYExport(temp);
-				about.setVisible(true);
 			}
 		});
 		

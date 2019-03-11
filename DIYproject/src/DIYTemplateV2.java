@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 public class DIYTemplateV2 extends DIYTemplate {
 
+	/** Eclipse generated serial number. */
+	private static final long serialVersionUID = 5788174364676729650L;
 	private JButton myBackButton;
 	public JFrame myParentFrame;
 	public JFrame myCurrentFrame;
