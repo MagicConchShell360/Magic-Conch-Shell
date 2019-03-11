@@ -44,14 +44,7 @@ public class DIYMaterialEdit extends DIYTemplate{
 		myQuantityInput = 0; 
 		myLengthInput = new BigDecimal(0);
 		myParentFrame = theFrame;
-		
-		myButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                myParentFrame.setEnabled(true);
-                if (isVisible()) setVisible(false);
-            }
-        });
+
 		
 	}
 	

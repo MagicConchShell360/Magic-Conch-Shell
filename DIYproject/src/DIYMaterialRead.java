@@ -50,14 +50,6 @@ public class DIYMaterialRead extends DIYTemplate {
 		myInfo = theInfo; //constructing the material info. 
 		
 		myParentFrame = theFrame;
-		
-		myButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                myParentFrame.setEnabled(true);
-                if (isVisible()) setVisible(false);
-            }
-        });
 	}
 	
 	/*
