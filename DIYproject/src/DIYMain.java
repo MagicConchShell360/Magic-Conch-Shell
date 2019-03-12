@@ -3,8 +3,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -178,7 +182,41 @@ public class DIYMain extends DIYTemplate {
 				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = jfc.showOpenDialog(getParent());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					System.out.println("You chose to open this file: " + jfc.getSelectedFile().getName());
+					try {
+						Scanner scanner;
+						String name;
+						BigDecimal totalCost;
+						int priority;
+						double length;
+						
+						scanner = new Scanner(jfc.getSelectedFile().toString());
+						
+						scanner.next();	//Skip "Project Name:"
+						name = scanner.next();
+						
+						scanner.next();	//Skip "Total Cost: "
+						totalCost = new BigDecimal(scanner.next());
+						
+						scanner.next();	//Skip "Priority: "
+						priority = Integer.parseInt(scanner.next());
+						
+						scanner.next();	// Skip "Length: "
+						length = Double.parseDouble(scanner.next());
+						
+						// Create a new project for the list
+						DIYProjectInfo projectInfo = new DIYProjectInfo(name, 
+								totalCost, priority, length, new ArrayList<DIYMaterialInfo>());
+						
+						// Add the project to the existing list
+						myProjectInfo.add(projectInfo);
+						
+						scanner.close();
+						
+						myCenterPanel.repaint();
+						
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					}
 		}
 			}
 		});
@@ -194,6 +232,16 @@ public class DIYMain extends DIYTemplate {
 				int returnVal = jfc.showSaveDialog(getParent());
 				if (returnVal == JFileChooser.OPEN_DIALOG) {
 					System.out.println("You chose to save this file: " + jfc.getSelectedFile().getName());
+					OutputStream out;
+					try {
+						out = new FileOutputStream("\\" + jfc.getSelectedFile().getName()+".txt");
+						out.write(jfc.getSelectedFile().toString().getBytes());
+						myCenterPanel.repaint();
+						out.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
 				}
 			}
 		});
