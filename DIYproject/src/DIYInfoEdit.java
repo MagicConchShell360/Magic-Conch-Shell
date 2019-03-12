@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -74,10 +75,10 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
-				/*DIYMaterialEdit view = new DIYMaterialEdit(myProjectInfo.getMaterialList(), 
-															myProjectInfo.getMaterialList().get(index),
+				DIYMaterialEdit view = new DIYMaterialEdit(myProjectInfo.getMaterialList(), 
+				 											new DIYMaterialInfo("", new BigDecimal(0), 0, new BigDecimal(0)),
 															myParentFrame);							   
-				view.setVisible(true);*/
+				view.setVisible(true);
 			}
 		});
 
@@ -200,7 +201,5 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
-		
-		myJList = new JList(myListDisplay.toArray());
 	}
 }

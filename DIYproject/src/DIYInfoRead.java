@@ -56,6 +56,7 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
 		myProjectInfo = theProjectInfo;
+		myListDisplay = new ArrayList<>();
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUpComponents();
 	}
@@ -167,8 +168,6 @@ public class DIYInfoRead extends DIYTemplateV2 {
 		
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
-		if(!myListDisplay.isEmpty())
-			myJList = new JList(myListDisplay.toArray());
 	}
 
 }
