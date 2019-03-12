@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
-import javax.swing.JRootPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This is the GUI class for the main window.
@@ -137,8 +138,8 @@ public class DIYMain extends DIYTemplate {
 				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
 						.getParent().getParent();
 				
-//				DIYInfoEdit edit = new DIYInfoEdit(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
-//				edit.setVisible(true);
+				DIYInfoEdit edit = new DIYInfoEdit(temp, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				edit.setVisible(true);
 			}
 		});
 		
@@ -170,24 +171,30 @@ public class DIYMain extends DIYTemplate {
 		myImportButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-				DIYImport about = new DIYImport(temp);
-				about.setVisible(true);
+				JFileChooser jfc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "TXT");
+				jfc.setDialogTitle("Import as...");
+				jfc.setFileFilter(filter);
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int returnVal = jfc.showOpenDialog(getParent());
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: " + jfc.getSelectedFile().getName());
+		}
 			}
 		});
 		
 		myExportButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-				DIYExport about = new DIYExport(temp);
-				about.setVisible(true);
+				JFileChooser jfc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "TXT");
+				jfc.setDialogTitle("Export as...");
+				jfc.setFileFilter(filter);
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int returnVal = jfc.showSaveDialog(getParent());
+				if (returnVal == JFileChooser.OPEN_DIALOG) {
+					System.out.println("You chose to save this file: " + jfc.getSelectedFile().getName());
+				}
 			}
 		});
 		

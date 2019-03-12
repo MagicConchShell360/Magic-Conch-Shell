@@ -14,7 +14,6 @@ public class DIYMaterialInfo {
 	private BigDecimal myLength; 
 	private int myQuantity;
 
-	
 	/*
 	 * Constructor for all the material information 
 	 */
@@ -24,7 +23,6 @@ public class DIYMaterialInfo {
 		myPrice = thePrice;  
 		myLength = theLength; 
 		myQuantity = theQuantity;
-		
 	}
 	
 	/*
