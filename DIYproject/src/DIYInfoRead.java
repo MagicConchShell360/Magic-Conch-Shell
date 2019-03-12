@@ -1,14 +1,20 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 public class DIYInfoRead extends DIYTemplateV2 {
 
@@ -16,7 +22,7 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	private DIYProjectInfo myProjectInfo;
 	private JFrame myParentFrame;
 
-	private JButton addButton;
+	private JButton viewButton;
 
 	private JLabel myNameLabel;
 	private JLabel myCostLabel;
@@ -27,22 +33,28 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
-	private JList<DIYMaterialInfo> myJList;
+	
+	private JList myJList;
+	
+	private ArrayList<String> myListDisplay;
 
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
 		myProjectInfo = theProjectInfo;
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUpComponents();
 	}
 
 	private void setUpButtons() {
 
-		addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
+		viewButton = new JButton("View");
+		viewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				DIYMaterialInfo materialInfo = new DIYMaterialInfo("Material", new BigDecimal(7), 7, new BigDecimal(7));
-				// TODO FIX ME!!!
+				int index = myJList.getSelectedIndex();
+				DIYMaterialRead view = new DIYMaterialRead(myProjectInfo.getMaterialList().get(index),
+															myParentFrame);
+				view.setVisible(true);
 			}
 		});
 	}
@@ -75,33 +87,42 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	}
 
 	private void setUpMaterialList() {
-		myJList = new JList();
+		
+		setPreferredSize(new Dimension(100, 100));
+		myJList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		myJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		myJList.setSelectedIndex(0);
 	}
 
 	private void setUpComponents() {
-
-		myCenterPanel.setLayout(new GridLayout(8, 2));
-
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+		
+		JPanel northPanel = new JPanel(new GridLayout(8, 2));
+		JPanel southPanel = new JPanel(new GridBagLayout());
+		
 		setUpButtons();
 		setUpLabels();
 		setUpTextFields();
-
-		myCenterPanel.add(myNameLabel);
-		myCenterPanel.add(myNameTextField);
-
-		myCenterPanel.add(myCostLabel);
-		myCenterPanel.add(myTotalCostTextField);
-
-		myCenterPanel.add(myPriorityLabel);
-		myCenterPanel.add(myPriorityTextField);
-
-		myCenterPanel.add(myLengthLabel);
-		myCenterPanel.add(myLengthTextField);
-
-		myCenterPanel.add(addButton);
 		populateTextFields();
+		//setUpMaterialList();
+
+		northPanel.add(myNameLabel);
+		northPanel.add(myNameTextField);
+
+		northPanel.add(myCostLabel);
+		northPanel.add(myTotalCostTextField);
+
+		northPanel.add(myPriorityLabel);
+		northPanel.add(myPriorityTextField);
+
+		northPanel.add(myLengthLabel);
+		northPanel.add(myLengthTextField);
+
+		southPanel.add(viewButton);
+		//southPanel.add(myJList, BorderLayout.SOUTH);
+		
+		myCenterPanel.setLayout(new BorderLayout());
+		myCenterPanel.add(northPanel, BorderLayout.NORTH);
+		myCenterPanel.add(southPanel, BorderLayout.SOUTH);
 	}
 
 	private void populateTextFields() {
@@ -109,10 +130,10 @@ public class DIYInfoRead extends DIYTemplateV2 {
 		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
 		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
 		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
-
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
-
+			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
 		}
+		//myJList = new JList(myListDisplay.toArray());
 	}
 
 }
