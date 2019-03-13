@@ -28,11 +28,11 @@ import javax.swing.ListSelectionModel;
 public class DIYInfoEdit extends DIYTemplateV2 {
 
 	private static final long serialVersionUID = 5594295517454998089L;
+	
 	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
+	private DIYMaterialInfo myMaterialInfo;
 	private DIYProjectInfo myProjectInfo;
 	private ArrayList<String> myListDisplay;
-
-	private JFrame myParentFrame;
 
 	private JButton addButton;
 	private JButton removeButton;
@@ -47,27 +47,43 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	private JTextField myTotalCostTextField;
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
+	
 	private JList myJList;
 
+	// For creating a new material, we need the list so we can add the new material to list
 	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
 		super(theParentFrame);
 		myMaterialInfoList = theMaterialInfoList;
 		myListDisplay = new ArrayList<>();
 		myJList = new JList();
+		
+		setUpComponents();
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	}
+
+	// For editing an existing material
+	public DIYInfoEdit(JFrame theParentFrame, DIYMaterialInfo theMaterialInfo) {
+		super(theParentFrame);
+		myMaterialInfo = theMaterialInfo;
+		
+		myListDisplay = new ArrayList<>();
+		myJList = new JList();
+		
 		setUpComponents();
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
 	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
-		myParentFrame = theParentFrame;
 		myProjectInfo = theProjectInfo;
+		
 		myListDisplay = new ArrayList<>();
 		myJList = new JList();
+		
 		setUpComponents();
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
-
+	
 	private void setUpButtons() {
 
 		addButton = new JButton("Add");
@@ -75,9 +91,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
-				DIYMaterialEdit view = new DIYMaterialEdit(myProjectInfo.getMaterialList(), 
-				 											new DIYMaterialInfo("", new BigDecimal(0), 0, new BigDecimal(0)),
-															myParentFrame);							   
+				DIYMaterialEdit view = new DIYMaterialEdit(myParentFrame, theMaterialInfoList);							   
 				view.setVisible(true);
 			}
 		});
@@ -88,10 +102,10 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 			public void actionPerformed(final ActionEvent theEvent) {
 				if (!myJList.isSelectionEmpty()) {
 					int index = myJList.getSelectedIndex();
-					myJList.removeAll();
 					myMaterialInfoList.remove(index);
 					myCenterPanel.revalidate();
-					myCenterPanel.repaint();}
+					myCenterPanel.repaint();
+				}
 			}
 		});
 
@@ -101,9 +115,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 			public void actionPerformed(final ActionEvent theEvent) {
 				if (!myJList.isSelectionEmpty()) {
 					int index = myJList.getSelectedIndex();
-					DIYMaterialEdit view = new DIYMaterialEdit(myProjectInfo.getMaterialList(),
-																myProjectInfo.getMaterialList().get(index), 
-																myParentFrame);
+					DIYMaterialEdit view = 
+							new DIYMaterialEdit(myParentFrame, myMaterialInfo);
 					view.setVisible(true);
 				}
 			}
@@ -138,9 +151,9 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		myLengthTextField = new JTextField();
 
 		myNameTextField.setEditable(true);
-		myTotalCostTextField.setEditable(true);
+		myTotalCostTextField.setEditable(false);
 		myPriorityTextField.setEditable(true);
-		myLengthTextField.setEditable(true);
+		myLengthTextField.setEditable(false);
 
 	}
 
@@ -159,6 +172,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	 * Main set up method for all GUI components
 	 */
 	private void setUpComponents() {
+		
 		JPanel northPanel = new JPanel(new GridLayout(4, 2));
 		JPanel southPanel = new JPanel(new GridBagLayout());
 		
@@ -194,10 +208,11 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	 * Fills all text fields with their respective project information data types
 	 */
 	private void populateTextFields() {
+		
 		myNameTextField.setText(myProjectInfo.getName());
 		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
 		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
-		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
+		myLengthTextField.setText(myProjectInfo.getLength().toString());
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());

@@ -5,7 +5,7 @@ public class DIYProjectInfo {
 	private String myName;
 	private BigDecimal myTotalCost;
 	private int myPriority;
-	private double myLength;
+	private BigDecimal myTotalLength;
 	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	
 	/**
@@ -16,13 +16,12 @@ public class DIYProjectInfo {
 	 * 
 	 * @param theMaterialInfoList
 	 */
-	public DIYProjectInfo(String theName, BigDecimal theCost, 
-						  int thePriority, double theLength, 
-						  ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+	
+	public DIYProjectInfo(String theName, int thePriority, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
 		myName = theName;
-		myTotalCost = theCost;
+		myTotalCost = new BigDecimal(0);
 		myPriority = thePriority;
-		myLength = theLength;
+		myTotalLength = new BigDecimal(0);
 		myMaterialInfoList = theMaterialInfoList;
 	}
 
@@ -34,24 +33,38 @@ public class DIYProjectInfo {
 		myPriority = priority;
 	}
 
-	public void setLength(double length) {
-		myLength = length;
-	}
-
 	protected String getName() {
 		return myName;
 	}
 
 	protected BigDecimal getTotalCost() {
-		return myTotalCost;
+		BigDecimal totalCost = new BigDecimal(0);
+		BigDecimal price = new BigDecimal(0);
+		BigDecimal qty = new BigDecimal(0);
+		
+		for (int i = 0; i < myMaterialInfoList.size(); i++) {
+			qty.add(new BigDecimal(myMaterialInfoList.get(i).getQuantity()));
+			price.add(myMaterialInfoList.get(i).getPrice());
+			price.multiply(qty);
+			qty.setScale(0);
+			price.setScale(0);
+			totalCost.add(price);
+		}
+		
+		return totalCost;
 	}
 
 	protected int getPriority() {
 		return myPriority;
 	}
 
-	protected double getLength() {
-		return myLength;
+	protected BigDecimal getLength() {
+		BigDecimal length = new BigDecimal(0);
+		for (int i = 0; i < myMaterialInfoList.size(); i++) {
+			length.add(myMaterialInfoList.get(i).getLength());
+		}
+		return length;
+		
 	}
 
 	protected ArrayList<DIYMaterialInfo> getMaterialList() {
