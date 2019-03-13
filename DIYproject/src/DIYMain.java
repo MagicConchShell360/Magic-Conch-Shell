@@ -75,9 +75,19 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	private void initiateProjects() {
-		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
-				2, 7.5, new ArrayList<DIYMaterialInfo>()));
-
+		//Sally made dummy variables 
+		BigDecimal big1 = new BigDecimal(20.00);
+		BigDecimal big2 = new BigDecimal(4.3);
+		DIYMaterialInfo info = new DIYMaterialInfo("Stuff1", big1, 5, big2);
+		DIYMaterialInfo info1 = new DIYMaterialInfo("Stuff 2", big1, 6, big2);
+		ArrayList<DIYMaterialInfo> mat1 = new ArrayList<DIYMaterialInfo>();
+		mat1.add(info);
+		mat1.add(info1);
+		
+		//Sally made parameters based off of new constructor. 
+		myProjectInfo.add(new DIYProjectInfo("Window", 2, mat1);
+		
+		
 		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
 				4, 5.5, new ArrayList<DIYMaterialInfo>()));
 		
