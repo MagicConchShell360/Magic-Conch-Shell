@@ -1,3 +1,5 @@
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -7,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class DIYMaterialEdit extends DIYTemplate{
@@ -20,6 +23,10 @@ public class DIYMaterialEdit extends DIYTemplate{
 	private JLabel myQuantityTitle;
 	private JLabel myLengthTitle;
 	
+	private JButton myAddButton; 
+	private JButton myEditButton; 
+	private JButton myRemoveButton; 
+	
 	private ArrayList<DIYMaterialInfo> myList;
 	private DIYMaterialInfo myInfo; 
 	
@@ -29,36 +36,34 @@ public class DIYMaterialEdit extends DIYTemplate{
 	private BigDecimal myLengthInput;
 	
 	private JFrame myParentFrame;
-	private JButton myButton;
 	
 	//takes in a list 
-	public DIYMaterialEdit(ArrayList<DIYMaterialInfo> theList, 
-			DIYMaterialInfo theInfo, JFrame theFrame) {
+	public DIYMaterialEdit(ArrayList<DIYMaterialInfo> theList) {
 		myList = theList;
-		myInfo = theInfo; 
+		
+	}
+	
+	public DIYMaterialEdit(JFrame theFrame) {
+		myParentFrame = theFrame;
 		setJLabels();
 		setJTextFields();
 		addToCenter();
+	}
+	
+	public DIYMaterialEdit(DIYMaterialInfo theInfo, JFrame theFrame) {
+		myInfo = theInfo; 
 		myNameInput = "";
 		myPriceInput = new BigDecimal(0);
 		myQuantityInput = 0; 
 		myLengthInput = new BigDecimal(0);
 		myParentFrame = theFrame;
 		
-		myButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                myParentFrame.setEnabled(true);
-                if (isVisible()) setVisible(false);
-            }
-        });
-		
 	}
 	
 	/*
 	 * Constructor Helper method: Set the borders and the titles for the information. 
 	 */
-	public void setJLabels() {
+	private void setJLabels() {
 		myNameTitle = new JLabel("Material Name:");
 		myNameTitle.setBorder(BorderFactory.createEtchedBorder());
 		myPriceTitle = new JLabel("Price: ");
@@ -72,7 +77,7 @@ public class DIYMaterialEdit extends DIYTemplate{
 	/*
 	 * Constructor Helper method: initialize the text fields. 
 	 */
-	public void setJTextFields() {
+	private void setJTextFields() {
 		myNameField = new JTextField();
 		myNameField.setEditable(true);
 		myPriceField = new JTextField();
@@ -86,29 +91,53 @@ public class DIYMaterialEdit extends DIYTemplate{
 	/*
 	 * Constructor Helper method: add the JLabels to the panel. 
 	 */
-	public void addToCenter() {
-		myCenterPanel.add(myNameTitle);
-		myCenterPanel.add(myNameField);
+	private void addToCenter() {
+		JPanel north = new JPanel(new GridLayout(8,2));
+		JPanel south = new JPanel(new GridBagLayout());
 		
-		myCenterPanel.add(myPriceTitle);
-		myCenterPanel.add(myPriceField);
+		north.add(myNameTitle);
+		north.add(myNameField);
 		
-		myCenterPanel.add(myQuantityTitle);
-		myCenterPanel.add(myQuantityField);
+		north.add(myPriceTitle);
+		north.add(myPriceField);
 		
-		myCenterPanel.add(myLengthTitle);
-		myCenterPanel.add(myLengthField);
+		north.add(myQuantityTitle);
+		north.add(myQuantityField);
+		
+		north.add(myLengthTitle);
+		north.add(myLengthField);
+		
+		south.add(myAddButton = new JButton("Add"));
+		south.add(myEditButton = new JButton("Edit"));
+		south.add(myRemoveButton = new JButton("Remove"));
+		
 	}
 	
 	/*
 	 * Getting input from the text and storing them as variables. 
 	 */
-	public void populateText() {
+	public void populateText() { //make this with a save button 
 		myNameInput = myNameField.getText();
 		myPriceInput = new BigDecimal(myPriceField.getText());
 		myQuantityInput = Integer.parseInt(myQuantityField.getText());
 		myLengthInput = new BigDecimal(myLengthField.getText());
 	}
 	
+	//upSet = update/ Set
+	public void upSetName() {
+		myInfo.setName(myNameInput);
+	}
+	
+	public void upSetPrice() {
+		myInfo.setPrice(myPriceInput);
+	}
+	
+	public void upSetQuantity() {
+		myInfo.setQuantity(myQuantityInput);
+	}
+	
+	public void upSetLength() {
+		myInfo.setLength(myLengthInput);
+	}
 	
 }
