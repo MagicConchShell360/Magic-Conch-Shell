@@ -3,15 +3,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -79,20 +81,65 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	private void initiateProjects() {
-		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
-				2, 7.5, new ArrayList<DIYMaterialInfo>()));
-
-		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
-				4, 5.5, new ArrayList<DIYMaterialInfo>()));
+//		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
+//				2, 7.5, new ArrayList<DIYMaterialInfo>()));
+//
+//		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
+//				4, 5.5, new ArrayList<DIYMaterialInfo>()));
+//		
+//		myProjectInfo.add(new DIYProjectInfo("Table", BigDecimal.valueOf(150),
+//				3, 5.0, new ArrayList<DIYMaterialInfo>()));
+//		
+//		myProjectInfo.add(new DIYProjectInfo("Desk", BigDecimal.valueOf(100),
+//				2, 12.5, new ArrayList<DIYMaterialInfo>()));
+//		
+//		myProjectInfo.add(new DIYProjectInfo("Kitchen", BigDecimal.valueOf(7500),
+//				5, 63.5, new ArrayList<DIYMaterialInfo>()));
 		
-		myProjectInfo.add(new DIYProjectInfo("Table", BigDecimal.valueOf(150),
-				3, 5.0, new ArrayList<DIYMaterialInfo>()));
-		
-		myProjectInfo.add(new DIYProjectInfo("Desk", BigDecimal.valueOf(100),
-				2, 12.5, new ArrayList<DIYMaterialInfo>()));
-		
-		myProjectInfo.add(new DIYProjectInfo("Kitchen", BigDecimal.valueOf(7500),
-				5, 63.5, new ArrayList<DIYMaterialInfo>()));
+        //Sally made dummy variables 
+        BigDecimal big1 = new BigDecimal(20.00);
+        BigDecimal big2 = new BigDecimal(4.3);
+        BigDecimal big3 = new BigDecimal(3.33);
+        BigDecimal big4 = new BigDecimal(5);
+        BigDecimal big5 = new BigDecimal(2.43);
+        BigDecimal big6 = new BigDecimal(2.23);
+        
+        DIYMaterialInfo info = new DIYMaterialInfo("Wood", big1, 5, big2);
+        DIYMaterialInfo info1 = new DIYMaterialInfo("Plastic", big1, 6, big2);
+        DIYMaterialInfo info2 = new DIYMaterialInfo("Screws", big3, 2, big1);
+        DIYMaterialInfo info3 = new DIYMaterialInfo("Wood gloss", big4, 7, big2);
+        DIYMaterialInfo info4 = new DIYMaterialInfo("Paint", big5, 4, big6);
+        
+        ArrayList<DIYMaterialInfo> mat1 = new ArrayList<DIYMaterialInfo>();
+        mat1.add(info);
+        mat1.add(info1);
+        
+        ArrayList<DIYMaterialInfo> mat2 = new ArrayList<DIYMaterialInfo>();
+        mat2.add(info2);
+        mat2.add(info);
+        
+        ArrayList<DIYMaterialInfo> mat3 = new ArrayList<DIYMaterialInfo>();
+        mat3.add(info3);
+        mat3.add(info2);
+        
+        ArrayList<DIYMaterialInfo> mat4 = new ArrayList<DIYMaterialInfo>();
+        mat4.add(info3);
+        mat4.add(info4);
+        
+        ArrayList<DIYMaterialInfo> mat5 = new ArrayList<DIYMaterialInfo>();
+        mat5.add(info);
+        mat5.add(info3)
+        
+        //Sally made parameters based off of new constructor. 
+        myProjectInfo.add(new DIYProjectInfo("Window", 2, mat1);
+        
+        myProjectInfo.add(new DIYProjectInfo("Chair", 1, mat2));
+        
+        myProjectInfo.add(new DIYProjectInfo("Table", 3, mat3));
+        
+        myProjectInfo.add(new DIYProjectInfo("Desk", 4, mat4);
+        
+        myProjectInfo.add(new DIYProjectInfo("Kitchen", 5, mat5);
 	}
 	
 	/**
@@ -128,17 +175,16 @@ public class DIYMain extends DIYTemplate {
 		myAddButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-//				DIYInfoEdit read = new DIYInfoEdit(myCurrentFrame, myProjectInfo);
-//				read.setVisible(true);
+				DIYInfoEdit read = new DIYInfoEdit(myCurrentFrame, myProjectInfo);
+				read.setVisible(true);
 			}
 		});
 		
 		myEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-
-//				DIYInfoEdit edit = new DIYInfoEdit(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
-//				edit.setVisible(true);
+				DIYInfoEdit edit = new DIYInfoEdit(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				edit.setVisible(true);
 			}
 		});
 		
@@ -175,29 +221,30 @@ public class DIYMain extends DIYTemplate {
 				int returnVal = jfc.showOpenDialog(getParent());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
-						Scanner scanner;
+						Scanner scanner = new Scanner(jfc.getSelectedFile().toString());;
 						String name;
-						BigDecimal totalCost;
 						int priority;
-						double length;
+						ArrayList<DIYMaterialInfo> matList = new ArrayList<>();
 						
-						scanner = new Scanner(jfc.getSelectedFile().toString());
+						name = scanner.nextLine();
+						priority = Integer.parseInt(scanner.nextLine());
+						int matCount = Integer.parseInt(scanner.nextLine());
 						
-						scanner.next();	//Skip "Project Name:"
-						name = scanner.next();
-						
-						scanner.next();	//Skip "Total Cost: "
-						totalCost = new BigDecimal(scanner.next());
-						
-						scanner.next();	//Skip "Priority: "
-						priority = Integer.parseInt(scanner.next());
-						
-						scanner.next();	// Skip "Length: "
-						length = Double.parseDouble(scanner.next());
+			    	    for(int i = 0; i < matCount; i++) {
+			    	    	String matName;
+			    	    	BigDecimal matPrice, matLength;
+			    	    	int matQuantity;
+			    	    	
+			    	    	matName = scanner.nextLine();
+			    	    	matPrice = new BigDecimal(Double.parseDouble(scanner.nextLine()));
+			    	    	matQuantity = Integer.parseInt(scanner.nextLine());
+			    	    	matPrice = new BigDecimal(Double.parseDouble(scanner.nextLine()));
+			    	    	matList.add(new DIYMaterialInfo(matName, matPrice, matQuantity, matPrice));
+			    	    }
+
 						
 						// Create a new project for the list
-						DIYProjectInfo projectInfo = new DIYProjectInfo(name, 
-								totalCost, priority, length, new ArrayList<DIYMaterialInfo>());
+						DIYProjectInfo projectInfo = new DIYProjectInfo(name, priority, matList);
 						
 						// Add the project to the existing list
 						myProjectInfo.add(projectInfo);
@@ -218,37 +265,79 @@ public class DIYMain extends DIYTemplate {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 
-				JFileChooser jfc = new JFileChooser();
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "TXT");
-				jfc.setDialogTitle("Export as...");
-				jfc.setFileFilter(filter);
-				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				int returnVal = jfc.showSaveDialog(getParent());
-				if (returnVal == JFileChooser.OPEN_DIALOG) {
-					System.out.println("You chose to save this file: " + jfc.getSelectedFile().getName());
-					OutputStream out;
-					try {
-						out = new FileOutputStream("\\" + jfc.getSelectedFile().getName()+".txt");
-						out.write(jfc.getSelectedFile().toString().getBytes());
-						myCenterPanel.repaint();
-						out.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-				}
+//				JFileChooser jfc = new JFileChooser();
+//				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "TXT");
+//				jfc.setDialogTitle("Export as...");
+//				jfc.setFileFilter(filter);
+//				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//				int returnVal = jfc.showSaveDialog(myCurrentFrame);
+//				
+//				if (returnVal == JFileChooser.OPEN_DIALOG) {
+//					System.out.println("You chose to save this file: " + jfc.getSelectedFile().getName());
+//					OutputStream out;
+//					try {
+//						
+//						PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+//						writer.println("The first line");
+//						writer.println("The second line");
+//						writer.close();
+//						
+//						
+//						out = new FileOutputStream("\\" + jfc.getSelectedFile().getName()+".txt");
+//						out.write(jfc.getSelectedFile().toString().getBytes());
+//						out.close();
+//						
+//						
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//					
+//				}
 
+				
+			    JFileChooser chooser = new JFileChooser();
+			    chooser.setCurrentDirectory(new File("/home/me/Documents"));
+			    int retrival = chooser.showSaveDialog(null);
+			    if (retrival == JFileChooser.APPROVE_OPTION) {
+			    	try(FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt")) {
+			    		// Selects the project
+			    		DIYProjectInfo exp = myProjectInfo.get(myProjectRegister.getSelectedIndex());
+			    		
+			    		// Wraps FileWriter to BufferedWriter
+			    		BufferedWriter bw = new BufferedWriter(fw);
+			    		bw.write(exp.getName());
+			    		bw.newLine();
+			    		bw.write(exp.getPriority());
+			    		bw.newLine();
+			    	    bw.write(exp.getMaterialList().size());
+			    	    
+			    	    for(int i = 0; i < exp.getMaterialList().size(); i++) {
+			    	    	DIYMaterialInfo temp = exp.getMaterialList().get(i);
+			    	    	bw.write(temp.getName());
+			    	    	bw.newLine();
+			    	    	bw.write(temp.getPrice().toString());
+			    	    	bw.newLine();
+			    	    	bw.write(temp.getQuantity());
+			    	    	bw.newLine();
+			    	    	bw.write(temp.getLength().toString());
+			    	    	bw.newLine();
+			    	    }
+			    	    
+			    	    bw.close();
+			    	    fw.close();
+			    	    
+			    	} catch (Exception ex) {
+			            ex.printStackTrace();
+			        }
+			    }
+				
 			}
 		});
 		
 		myAboutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				JButton sourceButton = (JButton) event.getSource();
-				DIYMain temp = (DIYMain) sourceButton.getParent().getParent().getParent()
-						.getParent().getParent();
-				
-				DIYAbout about = new DIYAbout(temp);
+				DIYAbout about = new DIYAbout(myCurrentFrame);
 				about.setVisible(true);
 			}
 		});
