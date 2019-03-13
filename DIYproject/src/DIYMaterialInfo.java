@@ -14,8 +14,10 @@ public class DIYMaterialInfo {
 	private BigDecimal myLength; 
 	private int myQuantity;
 
-	/*
+	/**
 	 * Constructor for all the material information 
+	 * 
+	 * @author Sally Ho
 	 */
 	public DIYMaterialInfo(String theName, BigDecimal thePrice, int theQuantity,
 							BigDecimal theLength) {
