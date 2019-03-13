@@ -124,6 +124,8 @@ public class DIYMaterialEdit extends DIYTemplate{
 	}
 	
 	//upSet = update/ Set
+	
+	
 	public void upSetName() {
 		myInfo.setName(myNameInput);
 	}
