@@ -31,6 +31,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	
 	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	private DIYMaterialInfo myMaterialInfo;
+	private DIYProjectInfo myProjectInfo;
 	private ArrayList<String> myListDisplay;
 
 	private JButton addButton;
@@ -53,7 +54,6 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
 		super(theParentFrame);
 		myMaterialInfoList = theMaterialInfoList;
-		
 		myListDisplay = new ArrayList<>();
 		myJList = new JList();
 		
@@ -73,6 +73,17 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
+	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
+		super(theParentFrame);
+		myProjectInfo = theProjectInfo;
+		
+		myListDisplay = new ArrayList<>();
+		myJList = new JList();
+		
+		setUpComponents();
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	}
+	
 	private void setUpButtons() {
 
 		addButton = new JButton("Add");
@@ -201,7 +212,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		myNameTextField.setText(myProjectInfo.getName());
 		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
 		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
-		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
+		myLengthTextField.setText(myProjectInfo.getLength().toString());
 
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());

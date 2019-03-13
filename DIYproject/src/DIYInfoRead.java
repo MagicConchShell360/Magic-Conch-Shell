@@ -164,7 +164,7 @@ public class DIYInfoRead extends DIYTemplateV2 {
 		myNameTextField.setText(myProjectInfo.getName());
 		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
 		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
-		myLengthTextField.setText(Double.toString(myProjectInfo.getLength()));
+		myLengthTextField.setText(myProjectInfo.getLength().toString());
 		
 		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
 			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
