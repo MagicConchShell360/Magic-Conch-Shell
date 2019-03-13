@@ -5,7 +5,7 @@ public class DIYProjectInfo {
 	private String myName;
 	private BigDecimal myTotalCost;
 	private int myPriority;
-	private double myLength;
+	private double myTotalLength;
 	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
 	
 	/**
@@ -16,13 +16,12 @@ public class DIYProjectInfo {
 	 * 
 	 * @param theMaterialInfoList
 	 */
-	public DIYProjectInfo(String theName, BigDecimal theCost, 
-						  int thePriority, double theLength, 
-						  ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+	
+	public DIYProjectInfo(String theName, int thePriority, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
 		myName = theName;
-		myTotalCost = theCost;
+		myTotalCost = new BigDecimal(0);
 		myPriority = thePriority;
-		myLength = theLength;
+		myLength = new BigDecimal(0);
 		myMaterialInfoList = theMaterialInfoList;
 	}
 
@@ -37,13 +36,18 @@ public class DIYProjectInfo {
 	public void setLength(double length) {
 		myLength = length;
 	}
-
+	
 	protected String getName() {
 		return myName;
 	}
 
 	protected BigDecimal getTotalCost() {
-		return myTotalCost;
+		BigDecimal totalCost;
+		
+		for (int i = 0; i < theMaterialInfoList.size(); i++) {
+			totalCost.
+		}
+		return totalCost;
 	}
 
 	protected int getPriority() {
