@@ -1,3 +1,8 @@
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +27,10 @@ public class DIYAbout extends JFrame {
 	private JButton myButton;
 	private JFrame myParentFrame;
 	
+	/**
+	 * 
+	 * @author Joseph Joo
+	 */
 	public DIYAbout (JFrame thisParentFrame) {
 		myInfo = new DIYVersionInfo();
 		myPanel = new JPanel();
@@ -40,6 +49,9 @@ public class DIYAbout extends JFrame {
 		setVisible(false);
 	}
 	
+	/**
+	 * @author Joseph Joo
+	 */
 	private void setUpComponents() {
 		add(myVersionLabel, BorderLayout.NORTH);
 		add(myDeveloperLabel, BorderLayout.CENTER);

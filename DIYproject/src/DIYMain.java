@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,6 +26,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class DIYMain extends DIYTemplate {
 	
+	/** Eclipse generated serial version */
+	private static final long serialVersionUID = -1694107177449675424L;
+	
+	// Buttons at left sidebar
 	private JButton myAddButton;
 	private JButton myEditButton;
 	private JButton myViewButton;
@@ -32,10 +37,18 @@ public class DIYMain extends DIYTemplate {
 	private JButton myImportButton;
 	private JButton myExportButton;
 	private JButton myAboutButton;
+	
+	// Fields for displaying JList
+	DefaultListModel<String> myProjectRegisterModel;
 	private JList<String> myProjectRegister;
-	private ArrayList<DIYProjectInfo> myProjectInfo;
-	private ArrayList<String> myListDisplay;
+	
+	// List of projects available
+	private ArrayList<DIYProjectInfo> myProjectList;
+	
+	// Holder for this current frame
 	private JFrame myCurrentFrame;
+	
+	
 
 	/**
 	 * Sets up all the components for the main window.
@@ -43,14 +56,17 @@ public class DIYMain extends DIYTemplate {
 	 * @author Kevin Santos
 	 */
 	public DIYMain() {
-		myCurrentFrame = this;
-		
 		// Centers the window to the screen
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		this.setLocation(dim.width / 2 - this.getSize().width / 2,
+						 dim.height / 2 - this.getSize().height / 2);
 		
-		// Initiates components
-		myProjectInfo = new ArrayList<>();
+		// Init fields
+		myProjectList = new ArrayList<>();
+		myProjectRegisterModel = new DefaultListModel<>();
+		myCurrentFrame = this;
+		
+		// Init components
 		initiateProjects();
 		addWestPanelButtons();
 		setUpButtonListeners();
@@ -58,16 +74,19 @@ public class DIYMain extends DIYTemplate {
 	}
 	
 	/**
+	 * Populates the Jlist for the projects
 	 * 
+	 * @author Kevin Santos
 	 */
-	private void initProjectRegister() {
-		myListDisplay = new ArrayList<>();
+	private void initProjectRegister() {		
+		myProjectRegister = new JList<>(myProjectRegisterModel);
 		
-		for(int i = 0; i < myProjectInfo.size(); i++) {
-			myListDisplay.add(myProjectInfo.get(i).toString());
+		
+		for(int i = 0; i < myProjectList.size(); i++) {
+			myProjectRegisterModel.addElement(myProjectList.get(i).toString());
 		}
 		
-		myProjectRegister = new JList(myListDisplay.toArray());
+		
 		myProjectRegister.setPreferredSize(new Dimension(635,555));
 		myProjectRegister.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		myProjectRegister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -78,31 +97,17 @@ public class DIYMain extends DIYTemplate {
 	/**
 	 * Sets values to ProjectList
 	 * 
-	 * @author Kevin Santos
+	 * @author Kevin Santos, Sally Ho
 	 */
 	private void initiateProjects() {
-//		myProjectInfo.add(new DIYProjectInfo("Window", BigDecimal.valueOf(500),
-//				2, 7.5, new ArrayList<DIYMaterialInfo>()));
-//
-//		myProjectInfo.add(new DIYProjectInfo("Chair", BigDecimal.valueOf(25),
-//				4, 5.5, new ArrayList<DIYMaterialInfo>()));
-//		
-//		myProjectInfo.add(new DIYProjectInfo("Table", BigDecimal.valueOf(150),
-//				3, 5.0, new ArrayList<DIYMaterialInfo>()));
-//		
-//		myProjectInfo.add(new DIYProjectInfo("Desk", BigDecimal.valueOf(100),
-//				2, 12.5, new ArrayList<DIYMaterialInfo>()));
-//		
-//		myProjectInfo.add(new DIYProjectInfo("Kitchen", BigDecimal.valueOf(7500),
-//				5, 63.5, new ArrayList<DIYMaterialInfo>()));
-		
-        //Sally made dummy variables 
-        BigDecimal big1 = new BigDecimal(20.00);
-        BigDecimal big2 = new BigDecimal(4.3);
-        BigDecimal big3 = new BigDecimal(3.33);
+
+        // Dummy variables 
+        BigDecimal big1 = new BigDecimal(20.0);
+        BigDecimal big2 = new BigDecimal(4.5);
+        BigDecimal big3 = new BigDecimal(3.5);
         BigDecimal big4 = new BigDecimal(5);
-        BigDecimal big5 = new BigDecimal(2.43);
-        BigDecimal big6 = new BigDecimal(2.23);
+        BigDecimal big5 = new BigDecimal(2.75);
+        BigDecimal big6 = new BigDecimal(2.25);
         
         DIYMaterialInfo info = new DIYMaterialInfo("Wood", big1, 5, big2);
         DIYMaterialInfo info1 = new DIYMaterialInfo("Plastic", big1, 6, big2);
@@ -128,18 +133,18 @@ public class DIYMain extends DIYTemplate {
         
         ArrayList<DIYMaterialInfo> mat5 = new ArrayList<DIYMaterialInfo>();
         mat5.add(info);
-        mat5.add(info3)
+        mat5.add(info3);
         
         //Sally made parameters based off of new constructor. 
-        myProjectInfo.add(new DIYProjectInfo("Window", 2, mat1);
+        myProjectList.add(new DIYProjectInfo("Window", 2, mat1));
         
-        myProjectInfo.add(new DIYProjectInfo("Chair", 1, mat2));
+        myProjectList.add(new DIYProjectInfo("Chair", 1, mat2));
         
-        myProjectInfo.add(new DIYProjectInfo("Table", 3, mat3));
+        myProjectList.add(new DIYProjectInfo("Table", 3, mat3));
         
-        myProjectInfo.add(new DIYProjectInfo("Desk", 4, mat4);
+        myProjectList.add(new DIYProjectInfo("Desk", 4, mat4));
         
-        myProjectInfo.add(new DIYProjectInfo("Kitchen", 5, mat5);
+        myProjectList.add(new DIYProjectInfo("Kitchen", 5, mat5));
 	}
 	
 	/**
@@ -175,7 +180,7 @@ public class DIYMain extends DIYTemplate {
 		myAddButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				DIYInfoEdit read = new DIYInfoEdit(myCurrentFrame, myProjectInfo);
+				DIYInfoEdit read = new DIYInfoEdit(myCurrentFrame, myProjectList);
 				read.setVisible(true);
 			}
 		});
@@ -183,7 +188,8 @@ public class DIYMain extends DIYTemplate {
 		myEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				DIYInfoEdit edit = new DIYInfoEdit(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				DIYInfoEdit edit = new DIYInfoEdit(myCurrentFrame,
+						myProjectList.get(myProjectRegister.getSelectedIndex()));
 				edit.setVisible(true);
 			}
 		});
@@ -191,7 +197,8 @@ public class DIYMain extends DIYTemplate {
 		myViewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				DIYInfoRead view = new DIYInfoRead(myCurrentFrame, myProjectInfo.get(myProjectRegister.getSelectedIndex()));
+				DIYInfoRead view = new DIYInfoRead(myCurrentFrame,
+						myProjectList.get(myProjectRegister.getSelectedIndex()));
 				view.setVisible(true);
 			}
 		});
@@ -199,13 +206,9 @@ public class DIYMain extends DIYTemplate {
 		myRemoveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				myCenterPanel.removeAll();
 				int index = myProjectRegister.getSelectedIndex();
-				
-				myProjectInfo.remove(index);
-				initProjectRegister();
-				myCenterPanel.revalidate();
-				myCenterPanel.repaint();
+				myProjectList.remove(index);
+				myProjectRegisterModel.remove(index);
 			}
 		});
 		
@@ -238,8 +241,8 @@ public class DIYMain extends DIYTemplate {
 			    	    	matName = scanner.nextLine();
 			    	    	matPrice = new BigDecimal(Double.parseDouble(scanner.nextLine()));
 			    	    	matQuantity = Integer.parseInt(scanner.nextLine());
-			    	    	matPrice = new BigDecimal(Double.parseDouble(scanner.nextLine()));
-			    	    	matList.add(new DIYMaterialInfo(matName, matPrice, matQuantity, matPrice));
+			    	    	matLength = new BigDecimal(Double.parseDouble(scanner.nextLine()));
+			    	    	matList.add(new DIYMaterialInfo(matName, matPrice, matQuantity, matLength));
 			    	    }
 
 						
@@ -247,7 +250,7 @@ public class DIYMain extends DIYTemplate {
 						DIYProjectInfo projectInfo = new DIYProjectInfo(name, priority, matList);
 						
 						// Add the project to the existing list
-						myProjectInfo.add(projectInfo);
+						myProjectList.add(projectInfo);
 						
 						scanner.close();
 						
@@ -263,45 +266,14 @@ public class DIYMain extends DIYTemplate {
 		
 		myExportButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(final ActionEvent event) {
-
-//				JFileChooser jfc = new JFileChooser();
-//				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "TXT");
-//				jfc.setDialogTitle("Export as...");
-//				jfc.setFileFilter(filter);
-//				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//				int returnVal = jfc.showSaveDialog(myCurrentFrame);
-//				
-//				if (returnVal == JFileChooser.OPEN_DIALOG) {
-//					System.out.println("You chose to save this file: " + jfc.getSelectedFile().getName());
-//					OutputStream out;
-//					try {
-//						
-//						PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-//						writer.println("The first line");
-//						writer.println("The second line");
-//						writer.close();
-//						
-//						
-//						out = new FileOutputStream("\\" + jfc.getSelectedFile().getName()+".txt");
-//						out.write(jfc.getSelectedFile().toString().getBytes());
-//						out.close();
-//						
-//						
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//					
-//				}
-
-				
+			public void actionPerformed(final ActionEvent event) {			
 			    JFileChooser chooser = new JFileChooser();
 			    chooser.setCurrentDirectory(new File("/home/me/Documents"));
 			    int retrival = chooser.showSaveDialog(null);
 			    if (retrival == JFileChooser.APPROVE_OPTION) {
 			    	try(FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt")) {
 			    		// Selects the project
-			    		DIYProjectInfo exp = myProjectInfo.get(myProjectRegister.getSelectedIndex());
+			    		DIYProjectInfo exp = myProjectList.get(myProjectRegister.getSelectedIndex());
 			    		
 			    		// Wraps FileWriter to BufferedWriter
 			    		BufferedWriter bw = new BufferedWriter(fw);
@@ -344,7 +316,18 @@ public class DIYMain extends DIYTemplate {
 		
 	}
 	
-	
+	/**
+	 * This method refreshes the JList
+	 * 
+	 * @author Kevin Santos
+	 */
+	public void refresh() {
+		myProjectRegisterModel.removeAllElements();
+		
+		for(int i = 0; i < myProjectList.size(); i++) {
+			myProjectRegisterModel.addElement(myProjectList.get(i).toString());
+		}
+	}
 	
 	
 }
