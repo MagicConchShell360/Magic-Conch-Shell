@@ -14,8 +14,10 @@ public class DIYMaterialInfo {
 	private BigDecimal myLength; 
 	private int myQuantity;
 
-	/*
+	/**
 	 * Constructor for all the material information 
+	 * 
+	 * @author Sally Ho
 	 */
 	public DIYMaterialInfo(String theName, BigDecimal thePrice, int theQuantity,
 							BigDecimal theLength) {
@@ -41,6 +43,14 @@ public class DIYMaterialInfo {
 		return myLength;
 	}
 	
+	public BigDecimal getTotalPrice() {
+		return myPrice.multiply(BigDecimal.valueOf(myQuantity));
+	}
+	
+	public BigDecimal getTotalLength() {
+		return myLength.multiply(BigDecimal.valueOf(myQuantity));
+	}
+	
 	/*
 	 * set methods for material edit 
 	 */
@@ -59,12 +69,9 @@ public class DIYMaterialInfo {
 	
 	@Override 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Material Name: " + getName());
-		sb.append("\tPrice Cost: " + getPrice());
-		sb.append("\tQuantity: " + getQuantity());
-		sb.append("\tLength: " + getLength());
-		
-		return sb.toString();
+		return "Name: " + getName() +
+				" --- Price: $" + getPrice() +
+				" --- Quantity: " + getQuantity() +
+				" --- Length: " + getLength();
 	}
 }

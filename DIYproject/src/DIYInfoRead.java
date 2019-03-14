@@ -5,9 +5,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,9 +42,10 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
 	
-	private JList myJList;
+	private JList<String> myJList;
+	DefaultListModel<String> myJListModel;
 	
-	private ArrayList<String> myListDisplay;
+	private JFrame myCurrentFrame;
 
 	/**
 	 * The default constructor class for DIYInfoRead
@@ -55,33 +56,16 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	 */
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
+		myCurrentFrame = this;
 		myProjectInfo = theProjectInfo;
-		myListDisplay = new ArrayList<>();
+		myJListModel = new DefaultListModel<>();
+		myJList = new JList<>(myJListModel);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUpComponents();
 	}
 
 	/**
-	 * JButton for viewing individual material components
-	 */
-	private void setUpButtons() {
-
-		viewButton = new JButton("View");
-		viewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				if (!myJList.isSelectionEmpty() ) {
-					int index = myJList.getSelectedIndex();
-					DIYMaterialRead view = new DIYMaterialRead(myProjectInfo.getMaterialList().get(index),
-																myParentFrame);
-					view.setVisible(true);
-				}
-			}
-		});
-	}
-
-	/**
-	 * JLabels for the labelling project information fields
+	 * JLabels for the labeling project information fields
 	 */
 	private void setUpLabels() {
 
@@ -94,6 +78,7 @@ public class DIYInfoRead extends DIYTemplateV2 {
 		myCostLabel.setText("Total Cost: ");
 		myPriorityLabel.setText("Priority: ");
 		myLengthLabel.setText("Total Length: ");
+		
 	}
 
 	/**
@@ -124,6 +109,20 @@ public class DIYInfoRead extends DIYTemplateV2 {
 		myJList.setSelectedIndex(0);
 	}
 
+	/**
+	 * Fills all text fields with their respective project information data types
+	 */
+	private void populateTextFields() {
+		myNameTextField.setText(myProjectInfo.getName());
+		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
+		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
+		myLengthTextField.setText(myProjectInfo.getLength().toString());
+		
+		for(int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
+			myJListModel.addElement(myProjectInfo.getMaterialList().get(i).toString());
+		}
+	}
+	
 	/**
 	 * Main set up method for all GUI components
 	 */
@@ -158,16 +157,20 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	}
 
 	/**
-	 * Fills all text fields with their respective project information data types
+	 * JButton for viewing individual material components
 	 */
-	private void populateTextFields() {
-		myNameTextField.setText(myProjectInfo.getName());
-		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
-		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
-		myLengthTextField.setText(myProjectInfo.getLength().toString());
-		
-		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
-			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
+	private void setUpButtons() {
+		viewButton = new JButton("View");
+		viewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				if (!myJList.isSelectionEmpty() ) {
+					int index = myJList.getSelectedIndex();
+					DIYMaterialRead view = new DIYMaterialRead(myCurrentFrame,
+							myProjectInfo.getMaterialList().get(index));
+					view.setVisible(true);
+				}
+			}
+		});
 	}
-
 }
