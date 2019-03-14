@@ -279,19 +279,20 @@ public class DIYMain extends DIYTemplate {
 			    		BufferedWriter bw = new BufferedWriter(fw);
 			    		bw.write(exp.getName());
 			    		bw.newLine();
-			    		bw.write(exp.getPriority());
+			    		bw.write(String.valueOf(exp.getPriority()));
 			    		bw.newLine();
-			    	    bw.write(exp.getMaterialList().size());
+			    	    bw.write(String.valueOf(exp.getMaterialList().size()));
+			    	    bw.newLine();
 			    	    
 			    	    for(int i = 0; i < exp.getMaterialList().size(); i++) {
 			    	    	DIYMaterialInfo temp = exp.getMaterialList().get(i);
 			    	    	bw.write(temp.getName());
 			    	    	bw.newLine();
-			    	    	bw.write(temp.getPrice().toString());
+			    	    	bw.write(String.valueOf(temp.getPrice().toString()));
 			    	    	bw.newLine();
-			    	    	bw.write(temp.getQuantity());
+			    	    	bw.write(String.valueOf(temp.getQuantity()));
 			    	    	bw.newLine();
-			    	    	bw.write(temp.getLength().toString());
+			    	    	bw.write(String.valueOf(temp.getLength().toString()));
 			    	    	bw.newLine();
 			    	    }
 			    	    
