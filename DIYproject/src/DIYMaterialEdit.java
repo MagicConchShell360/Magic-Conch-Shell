@@ -24,7 +24,7 @@ public class DIYMaterialEdit extends DIYTemplate{
 	private JLabel myLengthTitle;
 	
 	private JButton myAddButton; 
-	private JButton myEditButton; 
+	private JButton mySaveButton; 
 	private JButton myRemoveButton; 
 	
 	private ArrayList<DIYMaterialInfo> myList;
@@ -108,9 +108,15 @@ public class DIYMaterialEdit extends DIYTemplate{
 		north.add(myLengthField);
 		
 		south.add(myAddButton = new JButton("Add"));
-		south.add(myEditButton = new JButton("Edit"));
+		south.add(mySaveButton = new JButton("Save"));
 		south.add(myRemoveButton = new JButton("Remove"));
 		
+		mySaveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				upSet();
+			}
+		});
 	}
 	
 	/*
@@ -124,22 +130,12 @@ public class DIYMaterialEdit extends DIYTemplate{
 	}
 	
 	//upSet = update/ Set
-	
-	
-	public void upSetName() {
+	public void upSet() {
 		myInfo.setName(myNameInput);
-	}
-	
-	public void upSetPrice() {
 		myInfo.setPrice(myPriceInput);
-	}
-	
-	public void upSetQuantity() {
 		myInfo.setQuantity(myQuantityInput);
-	}
-	
-	public void upSetLength() {
 		myInfo.setLength(myLengthInput);
 	}
+
 	
 }
