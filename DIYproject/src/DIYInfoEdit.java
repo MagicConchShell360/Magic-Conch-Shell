@@ -22,18 +22,16 @@ import javax.swing.ListSelectionModel;
  * the DIYProjectInfo class and allows clients
  * to add, remove, or edit materials in a project.
  * 
- * @author Joseph
- *
+ * @author Joseph Joo
  */
 public class DIYInfoEdit extends DIYTemplateV2 {
 
+	/** Eclipse generated serial number */
 	private static final long serialVersionUID = 5594295517454998089L;
 	
 	private ArrayList<DIYProjectInfo> myProjectList;
 	ArrayList<DIYMaterialInfo> myMaterialList;
-	private DIYMaterialInfo myMaterialInfo;
 	private DIYProjectInfo myProjectInfo;
-	private ArrayList<String> myListDisplay;
 
 	private JButton addButton;
 	private JButton removeButton;

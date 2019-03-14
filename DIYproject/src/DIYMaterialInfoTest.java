@@ -1,8 +1,10 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * JUnit test case for DIYMaterialInfo utility class.
@@ -22,7 +24,7 @@ class DIYMaterialInfoTest {
 	 * Setup the temporary global DIYMaterialInfo variables
 	 * before the start of each test.
 	 */
-	@BeforeEach
+	@BeforeClass
 	void setUp() {
 		testName = "testMaterial";
 		testPrice = new BigDecimal(4.75);
