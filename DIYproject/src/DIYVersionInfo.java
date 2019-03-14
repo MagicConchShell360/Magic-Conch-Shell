@@ -1,6 +1,6 @@
 /*
  * Magic Conch Shell
- * TCSS 360
+ * Kevin Santos, Joseph Joo, Sally Ho
  */
 
 /**
@@ -12,26 +12,26 @@ public class DIYVersionInfo {
 
 	/** Stores the version information. */
 	private String myVersionInfo;
-	
+
 	/** Stores the developer names. */
 	private String[] myDevelopers;
 
 	/**
 	 * Initiates DIYVersionInfo with current version and the developer names
+	 * 
+	 * @author Kevin Santos
 	 */
 	public DIYVersionInfo() {
-		
+
 		myVersionInfo = "1.0";
-		myDevelopers = new String[] {"Kevin Santos",
-									 "Joseph Joo",
-									 "Sally Ho"};
-		
+		myDevelopers = new String[] { "Kevin Santos", "Joseph Joo", "Sally Ho" };
+
 	}
-	
+
 	/**
 	 * Returns the version information of the application.
 	 * 
-	 * @return
+	 * @author Kevin Santos
 	 */
 	public String getMyVersionInfo() {
 		return myVersionInfo;
@@ -40,7 +40,7 @@ public class DIYVersionInfo {
 	/**
 	 * Returns the name of the developers of the application.
 	 * 
-	 * @return
+	 * @author Kevin Santos
 	 */
 	public String[] getMyDevelopers() {
 		return myDevelopers;

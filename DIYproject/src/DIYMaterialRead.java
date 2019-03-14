@@ -1,18 +1,25 @@
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class DIYMaterialRead extends DIYTemplate {
+/**
+ * 
+ * @author Sally Ho
+ *
+ */
+public class DIYMaterialRead extends DIYTemplateV2 {
+	
+	/** eclipse generated serial */
+	private static final long serialVersionUID = 832307186340559434L;
 	//JLabels to display what I'm displaying. 
 	private JLabel myNameLabel; 
 	private JLabel myPriceLabel; 
@@ -25,26 +32,26 @@ public class DIYMaterialRead extends DIYTemplate {
 	private JLabel myQuantityTitle;
 	private JLabel myLengthTitle; 
 	
-	//JButtons to allow users to edit. 
-	private JButton addMaterialButton; 
-	private JButton removeMaterialButton; 
-	private JButton editButton; 
-	
 	//Misc Stuff 
-	private JFrame myParentFrame; 
 	private DIYMaterialInfo myInfo;
 	
-	/*
+	/**
 	 * Constructor 
+	 * 
+	 * @author Sally Ho, Kevin Santos
 	 */
-	public DIYMaterialRead(DIYMaterialInfo theInfo, JFrame theFrame) {
+	public DIYMaterialRead(JFrame theFrame, DIYMaterialInfo theInfo) {
+		super(theFrame);
 		addTexts();
 		addJLabels();
 		myInfo = theInfo; //constructing the material info. 
 		
-		myParentFrame = theFrame;
+		populateTextFields();
 	}
 	
+	/**
+	 * @author Sally Ho
+	 */
 	private void addTexts() {
 		myNameTitle = new JLabel("Material Name:");
 		myNameTitle.setBorder(BorderFactory.createEtchedBorder());
@@ -64,12 +71,13 @@ public class DIYMaterialRead extends DIYTemplate {
 	}
 	
 	
-	/*
+	/**
 	 * helper method to add jlabels. 
+	 * 
+	 * @author Sally Ho
 	 */
 	private void addJLabels() {
-		JPanel north = new JPanel(new GridLayout(8, 2));
-		JPanel south = new JPanel(new GridBagLayout());
+		JPanel north = new JPanel(new GridLayout(4, 2));
 		
 		north.add(myNameTitle);
 		north.add(myNameLabel);
@@ -83,17 +91,14 @@ public class DIYMaterialRead extends DIYTemplate {
 		north.add(myLengthTitle);
 		north.add(myLengthLabel);
 		
-		addMaterialButton = new JButton("Add");
-		editButton = new JButton("Edit");
-		removeMaterialButton = new JButton("Remove");
-		
-		south.add(addMaterialButton);
-		south.add(editButton);
-		south.add(removeMaterialButton);
+		myCenterPanel.setLayout(new BorderLayout());
+		myCenterPanel.add(north, BorderLayout.NORTH);
 	}
 	
-	/*
-	 * populate the fields 
+	/**
+	 * populate the fields
+	 * 
+	 * @author Sally Ho
 	 */
 	public void populateTextFields() {
 		myNameLabel.setText(myInfo.getName());

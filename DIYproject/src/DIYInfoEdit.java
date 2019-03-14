@@ -1,14 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +29,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 
 	private static final long serialVersionUID = 5594295517454998089L;
 	
-	private ArrayList<DIYMaterialInfo> myMaterialInfoList;
+	private ArrayList<DIYProjectInfo> myProjectList;
+	ArrayList<DIYMaterialInfo> myMaterialList;
 	private DIYMaterialInfo myMaterialInfo;
 	private DIYProjectInfo myProjectInfo;
 	private ArrayList<String> myListDisplay;
@@ -37,6 +38,7 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	private JButton addButton;
 	private JButton removeButton;
 	private JButton editButton;
+	private JButton saveButton;
 
 	private JLabel myNameLabel;
 	private JLabel myCostLabel;
@@ -48,84 +50,39 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	private JTextField myPriorityTextField;
 	private JTextField myLengthTextField;
 	
-	private JList myJList;
+	private JList<String> myJList;
+	DefaultListModel<String> myJListModel;
+	
+	/** True if adding to list else in edit mode */
+	private boolean isAdd;
 
 	// For creating a new material, we need the list so we can add the new material to list
-	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYMaterialInfo> theMaterialInfoList) {
+	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYProjectInfo> theProjectList) {
 		super(theParentFrame);
-		myMaterialInfoList = theMaterialInfoList;
-		myListDisplay = new ArrayList<>();
-		myJList = new JList();
+		isAdd = true;
+		myProjectList = theProjectList;
+		myJListModel = new DefaultListModel<>();
+		myJList = new JList<>(myJListModel);
+		myProjectInfo = new DIYProjectInfo("", 0, new ArrayList<DIYMaterialInfo>());
+		myMaterialList = new ArrayList<>();
 		
 		setUpComponents();
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	}
-
-	// For editing an existing material
-	public DIYInfoEdit(JFrame theParentFrame, DIYMaterialInfo theMaterialInfo) {
-		super(theParentFrame);
-		myMaterialInfo = theMaterialInfo;
-		
-		myListDisplay = new ArrayList<>();
-		myJList = new JList();
-		
-		setUpComponents();
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		populateBlankFields();
 	}
 
 	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
+		isAdd = false;
 		myProjectInfo = theProjectInfo;
 		
-		myListDisplay = new ArrayList<>();
-		myJList = new JList();
+		myJListModel = new DefaultListModel<>();
+		myJList = new JList<>(myJListModel);
 		
 		setUpComponents();
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	}
-	
-	private void setUpButtons() {
-
-		addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				
-				DIYMaterialEdit view = new DIYMaterialEdit(myParentFrame, theMaterialInfoList);							   
-				view.setVisible(true);
-			}
-		});
-
-		removeButton = new JButton("Remove");
-		removeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				if (!myJList.isSelectionEmpty()) {
-					int index = myJList.getSelectedIndex();
-					myMaterialInfoList.remove(index);
-					myCenterPanel.revalidate();
-					myCenterPanel.repaint();
-				}
-			}
-		});
-
-		editButton = new JButton("Edit");
-		editButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				if (!myJList.isSelectionEmpty()) {
-					int index = myJList.getSelectedIndex();
-					DIYMaterialEdit view = 
-							new DIYMaterialEdit(myParentFrame, myMaterialInfo);
-					view.setVisible(true);
-				}
-			}
-		});
-
 	}
 
 	/**
-	 * JLabels for the labelling project information fields
+	 * JLabels for the labeling project information fields
 	 */
 	private void setUpLabels() {
 
@@ -173,8 +130,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	 */
 	private void setUpComponents() {
 		
-		JPanel northPanel = new JPanel(new GridLayout(4, 2));
-		JPanel southPanel = new JPanel(new GridBagLayout());
+		JPanel northPanel = new JPanel(new GridLayout(5, 2));
+		JPanel southPanel = new JPanel(new FlowLayout());
 		
 		setUpButtons();
 		setUpLabels();
@@ -201,7 +158,15 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		
 		myCenterPanel.setLayout(new BorderLayout());
 		myCenterPanel.add(northPanel, BorderLayout.NORTH);
-		myCenterPanel.add(southPanel, BorderLayout.SOUTH);
+		myCenterPanel.add(southPanel, BorderLayout.CENTER);
+		myCenterPanel.add(saveButton, BorderLayout.SOUTH);
+	}
+	
+	private void populateBlankFields() {
+		myNameTextField.setText("Project Name");
+		myTotalCostTextField.setText("0");
+		myPriorityTextField.setText("1");
+		myLengthTextField.setText("0");
 	}
 	
 	/**
@@ -214,7 +179,84 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		myPriorityTextField.setText(Integer.toString(myProjectInfo.getPriority()));
 		myLengthTextField.setText(myProjectInfo.getLength().toString());
 
-		for (int i = 0; i < myProjectInfo.getMaterialList().size(); i++) 
-			myListDisplay.add(myProjectInfo.getMaterialList().get(i).getName());
+		for(int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
+			myJListModel.addElement(myProjectInfo.getMaterialList().get(i).toString());
+		}
 	}
+	
+	private void setUpButtons() {
+		addButton = new JButton("Add");
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				DIYMaterialEdit view = new DIYMaterialEdit(myCurrentFrame,
+						myProjectInfo.getMaterialList());							   
+				view.setVisible(true);
+			}
+		});
+
+		removeButton = new JButton("Remove");
+		removeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				int index = myJList.getSelectedIndex();
+				myProjectInfo.getMaterialList().remove(index);
+				myJListModel.remove(index);
+			}
+		});
+
+		editButton = new JButton("Edit");
+		editButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+
+				DIYMaterialEdit edit = new DIYMaterialEdit(myCurrentFrame,
+						myProjectInfo.getMaterialList().get(myJList.getSelectedIndex()));
+				edit.setVisible(true);
+			}
+		});
+		
+		saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				if (isAdd) {
+					
+					myProjectInfo.setName(myNameTextField.getText());
+					myProjectInfo.setPriority(Integer.parseInt(myPriorityTextField.getText()));
+					
+					myProjectList.add(myProjectInfo);
+					
+					((DIYMain) myParentFrame).refresh();
+					
+				} else {
+					
+					myProjectInfo.setName(myNameTextField.getText());
+					myProjectInfo.setPriority(Integer.parseInt(myPriorityTextField.getText()));
+					((DIYMain) myParentFrame).refresh();
+					
+				}
+				
+				System.out.println(myProjectList.size());
+				
+			}
+		});
+	}
+	
+	/**
+	 * This method refreshes the JList
+	 * 
+	 * @author Kevin Santos
+	 */
+	public void refresh() {		
+		myJListModel.removeAllElements();
+		
+		for(int i = 0; i < myProjectInfo.getMaterialList().size(); i++) {
+			myJListModel.addElement(myProjectInfo.getMaterialList().get(i).toString());
+		}
+
+		myTotalCostTextField.setText(myProjectInfo.getTotalCost().toString());
+		myLengthTextField.setText(myProjectInfo.getLength().toString());
+	}
+	
 }
