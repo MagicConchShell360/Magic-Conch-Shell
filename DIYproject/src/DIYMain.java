@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -224,14 +225,19 @@ public class DIYMain extends DIYTemplate {
 				int returnVal = jfc.showOpenDialog(getParent());
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
-						Scanner scanner = new Scanner(jfc.getSelectedFile().toString());;
+						File tempFile = new File(jfc.getSelectedFile().toString());
+						
+						Scanner scanner = new Scanner(tempFile);
 						String name;
 						int priority;
 						ArrayList<DIYMaterialInfo> matList = new ArrayList<>();
 						
 						name = scanner.nextLine();
+						System.out.println(name);
 						priority = Integer.parseInt(scanner.nextLine());
+						System.out.println(priority);
 						int matCount = Integer.parseInt(scanner.nextLine());
+						System.out.println(matCount);
 						
 			    	    for(int i = 0; i < matCount; i++) {
 			    	    	String matName;
@@ -256,7 +262,12 @@ public class DIYMain extends DIYTemplate {
 						
 						myCenterPanel.repaint();
 						
+						refresh();
+						
 					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 		}

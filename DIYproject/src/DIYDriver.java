@@ -7,7 +7,7 @@
 public class DIYDriver {
 
 	public static void main(String[] args) {
-		DIYMain control = new DIYMain();	
+		DIYMain control = new DIYMain();
 		control.setVisible(true);
 	}
 
