@@ -1,3 +1,8 @@
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -55,6 +60,9 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	private boolean isAdd;
 
 	// For creating a new material, we need the list so we can add the new material to list
+	/**
+	 * @author Joseph Joo, Kevin Santos
+	 */
 	public DIYInfoEdit(JFrame theParentFrame, ArrayList<DIYProjectInfo> theProjectList) {
 		super(theParentFrame);
 		isAdd = true;
@@ -68,6 +76,9 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		populateBlankFields();
 	}
 
+	/**
+	 * @author Joseph Joo, Kevin Santos
+	 */
 	public DIYInfoEdit(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
 		isAdd = false;
@@ -81,6 +92,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 
 	/**
 	 * JLabels for the labeling project information fields
+	 * 
+	 * @author Joseph Joo
 	 */
 	private void setUpLabels() {
 
