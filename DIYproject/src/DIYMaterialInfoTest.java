@@ -3,7 +3,6 @@ import java.math.BigDecimal;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -24,7 +23,7 @@ class DIYMaterialInfoTest {
 	 * Setup the temporary global DIYMaterialInfo variables
 	 * before the start of each test.
 	 */
-	@BeforeClass
+	@Before
 	void setUp() {
 		testName = "testMaterial";
 		testPrice = new BigDecimal(4.75);
