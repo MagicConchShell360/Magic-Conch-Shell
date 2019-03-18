@@ -1,4 +1,3 @@
-
 /*
  * Magic Conch Shell
  * Kevin Santos, Joseph Joo, Sally Ho

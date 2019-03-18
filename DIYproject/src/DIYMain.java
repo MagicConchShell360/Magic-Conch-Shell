@@ -1,3 +1,8 @@
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;

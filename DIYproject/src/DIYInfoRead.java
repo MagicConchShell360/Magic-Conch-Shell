@@ -1,3 +1,8 @@
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,14 +26,13 @@ import javax.swing.ListSelectionModel;
  * DIYProjectInfo class and allows clients to view the
  * materials in a project.
  * 
- * @author Joseph
+ * @author Joseph Joo
  *
  */
 public class DIYInfoRead extends DIYTemplateV2 {
 
 	private static final long serialVersionUID = -8160056479228037385L;
 	private DIYProjectInfo myProjectInfo;
-	private JFrame myParentFrame;
 
 	private JButton viewButton;
 
@@ -53,6 +57,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	 * 
 	 * @param theParentFrame
 	 * @param theProjectInfo
+	 * 
+	 * @author Joseph Joo
 	 */
 	public DIYInfoRead(JFrame theParentFrame, DIYProjectInfo theProjectInfo) {
 		super(theParentFrame);
@@ -66,6 +72,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 
 	/**
 	 * JLabels for the labeling project information fields
+	 * 
+	 * @author Joseph Joo
 	 */
 	private void setUpLabels() {
 
@@ -83,6 +91,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 
 	/**
 	 *  JTextFields for viewing project information input by user
+	 *  
+	 *  @author Joseph Joo
 	 */
 	private void setUpTextFields() {
 
@@ -100,6 +110,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 
 	/**
 	 * JList to display all materials currently in project
+	 * 
+	 * @author Joseph Joo
 	 */
 	private void setUpMaterialList() {
 		
@@ -111,6 +123,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 
 	/**
 	 * Fills all text fields with their respective project information data types
+	 * 
+	 * @author Joseph Joo, Kevin Santos
 	 */
 	private void populateTextFields() {
 		myNameTextField.setText(myProjectInfo.getName());
@@ -125,6 +139,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 	
 	/**
 	 * Main set up method for all GUI components
+	 * 
+	 * @author Joseph Joo, Kevin Santos
 	 */
 	private void setUpComponents() {
 		JPanel northPanel = new JPanel(new GridLayout(4, 2));
@@ -158,6 +174,8 @@ public class DIYInfoRead extends DIYTemplateV2 {
 
 	/**
 	 * JButton for viewing individual material components
+	 * 
+	 * @author Joseph Joo
 	 */
 	private void setUpButtons() {
 		viewButton = new JButton("View");

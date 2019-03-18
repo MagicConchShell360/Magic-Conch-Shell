@@ -13,7 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
+
 public class DIYMaterialEdit extends DIYTemplateV2 {
+
+	private static final long serialVersionUID = -4836707771556351175L;
 	private JTextField myNameField;
 	private JTextField myPriceField; 
 	private JTextField myLengthField;
@@ -36,7 +43,9 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 	
 	private boolean isAdd;
 	
-	//takes in a list 
+	/**
+	 * @author Sally Ho, Kevin Santos
+	 */
 	public DIYMaterialEdit(JFrame theFrame, ArrayList<DIYMaterialInfo> theList) {
 		super(theFrame);
 		myList = theList;
@@ -53,6 +62,9 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		
 	}
 
+	/**
+	 * @author Sally Ho, Kevin Santos
+	 */
 	public DIYMaterialEdit(JFrame theFrame, DIYMaterialInfo theInfo) {
 		super(theFrame);
 		myInfo = theInfo; 
@@ -66,6 +78,9 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		
 	}
 	
+	/**
+	 * @author Kevin Santos
+	 */
 	private void setUpSaveButton() {
 		mySaveButton = new JButton("Save");
 		mySaveButton.addActionListener(new ActionListener() {
@@ -98,8 +113,10 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		});
 	}
 	
-	/*
+	/**
 	 * Constructor Helper method: Set the borders and the titles for the information. 
+	 * 
+	 * @author Sally Ho
 	 */
 	private void setJLabels() {
 		myNameTitle = new JLabel("Material Name:");
@@ -112,8 +129,10 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		myLengthTitle.setBorder(BorderFactory.createEtchedBorder());		
 	}
 	
-	/*
+	/**
 	 * Constructor Helper method: initialize the text fields. 
+	 * 
+	 * @author Sally Ho
 	 */
 	private void setJTextFields() {
 		myNameField = new JTextField();
@@ -126,8 +145,10 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		myQuantityField.setEditable(true);
 	}
 	
-	/*
+	/**
 	 * Constructor Helper method: add the JLabels to the panel. 
+	 * 
+	 * @author Sally Ho, Kevin Santos
 	 */
 	private void addToCenter() {
 		JPanel north = new JPanel(new GridLayout(4,2));
@@ -152,8 +173,10 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		myCenterPanel.add(mySaveButton, BorderLayout.SOUTH);
 	}
 	
-	/*
+	/**
 	 * Getting input from the text and storing them as variables. 
+	 * 
+	 * @author Sally Ho
 	 */
 	public void populateText() { //make this with a save button 
 		myNameField.setText(myInfo.getName());
@@ -162,6 +185,9 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		myLengthField.setText(myInfo.getLength().toString());
 	}
 	
+	/**
+	 * @author Kevin Santos
+	 */
 	public void populateBlankText() { //make this with a save button 
 		myNameField.setText("Material Name");
 		myPriceField.setText("1");
@@ -169,19 +195,30 @@ public class DIYMaterialEdit extends DIYTemplateV2 {
 		myLengthField.setText("1");
 	}
 	
-	//upSet = update/ Set
+	/**
+	 * @author Sally Ho
+	 */
 	public void upSetName() {
 		myInfo.setName(myNameInput);
 	}
 	
+	/**
+	 * @author Sally Ho
+	 */
 	public void upSetPrice() {
 		myInfo.setPrice(myPriceInput);
 	}
 	
+	/**
+	 * @author Sally Ho
+	 */
 	public void upSetQuantity() {
 		myInfo.setQuantity(myQuantityInput);
 	}
 	
+	/**
+	 * @author Sally Ho
+	 */
 	public void upSetLength() {
 		myInfo.setLength(myLengthInput);
 	}

@@ -1,6 +1,12 @@
-import java.math.BigDecimal;
+/*
+ * Magic Conch Shell
+ * Kevin Santos, Joseph Joo, Sally Ho
+ */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +18,7 @@ import org.junit.Test;
  * @author Joseph Joo
  *
  */
-class DIYMaterialInfoTest {
+public class DIYMaterialInfoTest {
 	DIYMaterialInfo mat;
 	String testName;
 	BigDecimal testPrice;
@@ -22,9 +28,11 @@ class DIYMaterialInfoTest {
 	/**
 	 * Setup the temporary global DIYMaterialInfo variables
 	 * before the start of each test.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Before
-	void setUp() {
+	public void setUp() {
 		testName = "testMaterial";
 		testPrice = new BigDecimal(4.75);
 		testQty = 5;
@@ -36,49 +44,61 @@ class DIYMaterialInfoTest {
 	
 	/**
 	 * Asserts the DIYMaterialInfo is instantiated.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testDefaultConstructorNotNull() {
+	public void testDefaultConstructorNotNull() {
 		assertNotNull(mat);
 	}
 	
 	/**
 	 * Tests the getter for the material name.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testGetName() {
+	public void testGetName() {
 		assertEquals(testName, mat.getName());
 	}
 	
 	/**
 	 * Tests the getter for the material price.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testGetPrice() {
+	public void testGetPrice() {
 		assertEquals(testPrice, mat.getPrice());
 	}
 	
 	/**
 	 * Tests the getter for the material quantity.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testGetQuantity() {
+	public void testGetQuantity() {
 		assertEquals(testQty, mat.getQuantity());
 	}
 	
 	/**
 	 * Tests the getter for the material length.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testGetLength() {
+	public void testGetLength() {
 		assertEquals(testLength, mat.getLength());
 	}
 	
 	/**
 	 * Tests the setter for the material price.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testSetName() {
+	public void testSetName() {
 		String newName = "Window";
 		mat.setName(newName);
 		assertEquals(newName, mat.getName());
@@ -87,9 +107,11 @@ class DIYMaterialInfoTest {
 	
 	/**
 	 * Tests the setter for the material price.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testSetPrice() {
+	public void testSetPrice() {
 		BigDecimal newPrice = new BigDecimal(5.55);
 		mat.setPrice(newPrice);
 		assertEquals(newPrice, mat.getPrice());
@@ -98,9 +120,11 @@ class DIYMaterialInfoTest {
 	
 	/**
 	 * Tests the setter for the material quantity.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testSetQuantity() {
+	public void testSetQuantity() {
 		int newQty = 7;
 		mat.setQuantity(newQty);
 		assertEquals(newQty, mat.getQuantity());
@@ -109,9 +133,11 @@ class DIYMaterialInfoTest {
 	
 	/**
 	 * Tests the setter for the material length.
+	 * 
+	 * @author Joseph Joo
 	 */
 	@Test
-	void testSetLength() {
+	public void testSetLength() {
 		BigDecimal newLen = new BigDecimal(11.11);
 		mat.setLength(newLen);
 		assertEquals(newLen, mat.getLength());
