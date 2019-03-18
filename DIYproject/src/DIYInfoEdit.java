@@ -110,6 +110,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 
 	/**
 	 *  JTextFields for viewing project information input by user
+	 *  
+	 *  @author Joseph Joo
 	 */
 	private void setUpTextFields() {
 
@@ -127,6 +129,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 
 	/**
 	 * JList to display all materials currently in project
+	 * 
+	 * @author Joseph Joo
 	 */
 	private void setUpMaterialList() {
 		
@@ -138,6 +142,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	
 	/**
 	 * Main set up method for all GUI components
+	 * 
+	 * @author Joseph Joo, Kevin Santos
 	 */
 	private void setUpComponents() {
 		
@@ -173,6 +179,9 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		myCenterPanel.add(saveButton, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * @author Kevin Santos
+	 */
 	private void populateBlankFields() {
 		myNameTextField.setText("Project Name");
 		myTotalCostTextField.setText("0");
@@ -182,6 +191,8 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 	
 	/**
 	 * Fills all text fields with their respective project information data types
+	 * 
+	 * @author Joseph Joo, Kevin Santos
 	 */
 	private void populateTextFields() {
 		
@@ -195,6 +206,9 @@ public class DIYInfoEdit extends DIYTemplateV2 {
 		}
 	}
 	
+	/**
+	 * @author Joseph Joo, Kevin Santos
+	 */
 	private void setUpButtons() {
 		addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {

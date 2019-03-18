@@ -12,9 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * 
  * @author Sally Ho
- *
  */
 public class DIYMaterialRead extends DIYTemplateV2 {
 	
